@@ -1,0 +1,161 @@
+
+
+
+
+<!--Head-->
+<!-- <div id="headDiv" >
+     <p style="text-align: center;line-height: 200px; font-size:3vw; font-weight:bold;font-family: 'Comic Sans MS', cursive, sans-serif">
+         By our Hearts <span style="display:inline-block;font-size: 40px; font-weight: bold; color: red;width: 55px;" id="headHeart">❤</span> and our Conscience<span style="font-size: 45px; font-weight: bold; color:#dcdcdc; " id="headCross">✟</span>.
+     </p>
+</div>
+
+<script type="text/javascript">
+    var isBig=true;
+    var countTime=0;
+    function startShow(){
+        if(isBig) {
+            $("#headHeart").css("font-size", "35px");
+            $("#headCross").css("color", "#dcdcdc");
+            isBig=false;
+        }else{
+            $("#headHeart").css("font-size", "45px");
+            $("#headCross").css("color", "#c0c0c0");
+            isBig=true;
+        }
+
+        countTime+=1;
+        if(countTime==10){
+            clearInterval(timeInterval);
+            $("#headDiv").hide('slow', function(){ $("#headDiv").remove(); });
+        }
+
+    }
+    var timeInterval = setInterval("startShow()",500);
+</script>-->
+
+<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px;">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarHead">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">NCNLL<span style="font-size:10px;">(beta)</span></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" ng-controller="headCategoryCtrl" id="navbarHead">
+            <ul class="nav navbar-nav">
+                <li class="dropdown" id="syfl">
+                    <a style="cursor:pointer" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;摄影分类<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#!/category"><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;所有分类</a></li>
+                        <li class="divider"></li>
+                        <li ng-repeat="category in categories | orderBy:'categoryOrderIndex'"><a href="#!/product/category/{{category._id}}"><span class="{{category.iconName}}"></span>&nbsp;&nbsp;{{category.categoryName}}</a></li>
+                    </ul>
+                </li>
+
+         <!--        <li id="producers"><a href="/producers"><span class="glyphicon glyphicon-globe"></span>&nbsp;生产制作</a></li> -->
+                 <!-- <li id="producers">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-globe"></span>&nbsp;生产者<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#!/producers"><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;所有生产者</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!/producerCategory/categoryId"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;蔬菜水果</a></li>
+                        <li><a href="#!/producerCategory/categoryId"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;粮油副食</a></li>
+                        <li><a href="/category/single"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;佐料小菜</a></li>
+                        <li><a href="/category/single"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;烘焙零食</a></li>
+                        <li><a href="/category/single"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;干果炒货</a></li>
+                        <li><a href="/category/single"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;一日三餐</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-cutlery"></span>&nbsp;&nbsp;工厂</a></li>
+                    </ul>
+                </li> -->
+
+                <li id="photographers"><a href="#!/producers"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;生产者</a></li>
+
+                <!-- <li id="photographers"><a href="/photographers"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;摄影师</a></li>
+                <li id="sysb"><a href="/cameras"><span class="glyphicon glyphicon-camera"></span>&nbsp;摄影设备</a></li> -->
+            </ul>
+
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="输入关键字...">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right" ng-controller="rightNavbarCtl">
+                <li id="loginHead" ng-hide="loginSuccessfully"><a style="cursor:pointer;" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-user"></span>&nbsp;登录</a></li>
+                 <li class="dropdown" ng-show="loginSuccessfully">
+                    <a style="cursor:pointer" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>{{username}}，欢迎您<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#!/producer/infoManage/userId">用户信息管理</a></li>
+
+                        <li><a href="#!/producer/changePassword/userid">密码修改</a></li>
+                        <li class="divider"></li>
+                        <li><a style="cursor:pointer" ng-click="logout()">退出</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown" ng-show="loginSuccessfully">
+                    <a style="cursor:pointer" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-link"></span>品牌产品管理 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#!/producer/brandManage/userid">品牌信息管理</a></li>
+                        <li><a href="#!/producerManage/:userId">产品管理</a></li>
+                        <li><a href="#!/product/categoryManage">产品类别管理</a></li>
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a style="cursor:pointer" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-link"></span>友情链接 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://www.wwoof.org/">WWOOF</a></li>
+                        <li class="divider"></li>
+                        <li><a href="http://www.brinno.com.cn/">BRINNO</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" ng-controller="loginCtrl" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h4 class="modal-title" id="loginModalLabel">用户登录</h4>
+            </div>
+            <div class="modal-body" >
+                <form class="form-signin" role="form" style="width:80%;margin:0 auto 0 auto;" ng-submit="processForm()" >
+                    <p>
+                        <span class="glyphicon glyphicon-user" style="display: inline-block; width: 10%;"></span><input style="width: 90%;height:44px; display: inline-block;" type="email" ng-model="formData.email" class="form-control" placeholder="邮箱地址" required autofocus>
+                    </p>
+                    <p>
+                        <span class="glyphicon glyphicon-pencil" style="display: inline-block; width: 10%;"></span><input style="width: 90%;height:44px; display: inline-block;" type="password" ng-model="formData.password" class="form-control" placeholder="密码" required>
+                    </p>
+                    <p  >
+                        <div style="text-align:center;" ng-hide="loginSuccessfully" id="loginErrorDiv" class="alert" role="alert" ng-class="loginErrorClass">
+                            <span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;&nbsp;<strong >{{errorinfo}}^_^</strong>
+                        </div>
+                    </p>
+                    <!--<label class="checkbox">
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>-->
+                    <p style="text-align:center;">
+                        <a ng-click="getLostPassword()" style="cursor:pointer;" ><span class="glyphicon glyphicon-question-sign" style="display: inline-block; width: 10%;"></span>忘记密码</a>
+                        <a ng-click="userRegister()" style="cursor:pointer;"><span class="glyphicon glyphicon-floppy-open" style="display: inline-block; width: 10%;"></span>注册</a>
+                    </p>
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="登录" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

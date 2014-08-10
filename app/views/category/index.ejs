@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link rel='stylesheet' href='/vendors/bootstrap-3.1.1/css/bootstrap.min.css' />
+    <script type="text/javascript" src="/javascripts/jquery/jquery-1.9.0.js"></script>
+    <script type="text/javascript" src="/vendors/bootstrap-3.1.1/js/bootstrap.min.js"></script>
+    <!--    <link rel='stylesheet' href='/vendors/flowplayer/skin/minimalist.css' />
+        <script src="/vendors/flowplayer/flowplayer.min.js"></script>-->
+    <script>
+
+    </script>
+    <script>
+        $(function(){
+            //videojs.options.flash.swf = "/vendors/videojs/video-js.swf"
+            $("img").click(function(){
+                $('#myModal').modal('show');
+            });
+
+            $("#navbarHead li").removeClass("active")
+            $("#syfl").addClass("active");
+
+            /* var video = document.getElementById('video');
+                 video.addEventListener('click',function(){
+                 video.play();
+             },false);*/
+
+            /* if (navigator.userAgent.match(/Android/i) != null || (navigator.userAgent.match(/Chrome/i) != null && navigator.userAgent.match(/Mobile/i) != null)) {
+             $('video').each(function() {
+                 var src = $(this).find('source[type="video/webm"]').attr('src');
+                 var poster = $(this).attr('poster');
+                 $(this).replaceWith('<div class="not-video-js"><a href="'+src+'" style="display:block; position: relative; top:0; left:0;"><img src="'+poster+'" class="posterframe-fake"></a><div class="not-video-js-button" tabindex="0" style="position:absolute; top:50%; left: 50%;"><span style="margin: -50px 0 0 -50px; position:absolute; top:50%; left: 50%;"><a href="'+src+'"><img src="img/btn_video_play.png"></a></span></div></div>');
+             });
+             }*/
+        });
+    </script>
+
+</head>
+<body>
+
+    <%- include ../common %>
+
+    <ol class="breadcrumb" style="margin:0;">
+        <li><a href="/">首页</a></li>
+        <li class="active">摄影分类</li>
+    </ol>
+
+    <!--Body-->
+
+    <div class="alert alert-success" style="margin: 10px auto 3px auto; width:98%;"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;植物摄影<a  style="float:right; position:relative;top:-5px;" href="/category/single" class="btn btn-info btn-sm active" role="button">更多</a></div>
+    <div class="row" style="padding:5px 10px 10px 10px;margin:0 0 0 0;">
+        <div class="col-xs-12 col-sm-6 col-md-4" >
+            <div class="thumbnail">
+                <img style="height:250px;" src="/images/index/2.jpg" alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">大西瓜</a><span class="label label-primary" style="float:right;">山西河北</span></div>
+
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4" >
+            <div class="thumbnail">
+                <img style="height:250px;" src="/images/category/2.jpg" alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">蓝莓</a><span class="label label-primary" style="float:right;">日本</span></div>
+
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4" >
+            <div class="thumbnail">
+                <img style="height:250px;" src="/images/category/3.jpg" alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">橘子</a><span class="label label-primary" style="float:right;">美国</span></div>
+
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" style="margin: 10px auto 3px auto; width:98%;"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;美食记录 <a  style="float:right; position:relative;top:-5px;" href="/category" class="btn btn-success btn-sm active" role="button">更多</a></div>
+    <div class="row" style="padding:5px 10px 10px 10px;margin:0 0 0 0;">
+        <div class="col-xs-12 col-sm-6 col-md-4" >
+            <div class="thumbnail">
+                <img style="height:250px;" src="/images/index/22.jpg" alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">蜂蜜</a><span class="label label-primary" style="float:right;">山西河北</span></div>
+
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4" >
+            <div class="thumbnail">
+                <img style="height:250px;" src="/images/index/77.jpg" alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">巧克力</a><span class="label label-primary" style="float:right;">山西河北</span></div>
+
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4" >
+            <div class="thumbnail">
+                <img style="height:250px;" src="/images/index/66.jpg" alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">饼干</a><span class="label label-primary" style="float:right;">山西河北</span></div>
+
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-danger " style="margin: 10px auto 3px auto; width:98%;"><span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;工作&生活 <a  style="float:right; position:relative;top:-5px;" href="/category" class="btn btn-warning btn-sm active" role="button">更多</a></div>
+    <div class="row" style="padding:5px 10px 10px 10px;margin:0 0 0 0;">
+        <div class="col-xs-12 col-sm-6 col-md-4" >
+            <div class="thumbnail">
+                <img style="height:250px;" src="/images/producers/dp1.jpg" alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">小饺子</a><span class="label label-primary" style="float:right;">山西河北</span></div>
+
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4" >
+            <div class="thumbnail">
+                <img style="height:250px;" src="/images/producers/dp2.jpg" alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">小荠菜饺子</a><span class="label label-primary" style="float:right;">山西河北</span></div>
+
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4" >
+            <div class="thumbnail">
+                <img style="height:250px;" src="/images/producers/dp3.jpg"  alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">小牛肉饺子</a><span class="label label-primary" style="float:right;">山西河北</span></div>
+
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="pager">
+        <li class="previous"><a href="#">&larr; 前一页</a></li>
+        <li class="next"><a href="#">后一页 &rarr;</a></li>
+    </ul>
+
+    <%- include ../common %>
+
+    <!-- Modal -->
+    <%- include ../common %>
+</body>
+</html>

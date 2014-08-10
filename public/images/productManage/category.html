@@ -1,0 +1,17 @@
+<!-- //生产展示 -->
+        <div class="alert alert-success" style="margin: 10px auto 3px auto; width:98%;">
+          <span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;{{ category.title }}
+          <a ng-if="!hideMoreButton" style="float:right; position:relative;top:-5px;" href="/category" class="btn btn-info btn-sm active" role="button">更多</a>
+        </div>
+        <div class="row" style="padding:5px 0 10px 0;margin:0 0 0 0;">
+          <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in category.items">
+            <div class="thumbnail" >
+                <img style="cursor:pointer;" ng-src="{{ item.imgs[0] }}" ng-click="openModal(item)" alt="">
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">{{ $index + item.name }}</a><span class="label label-primary" style="float:right;">USA</span></div>
+                    <div style="height:10px;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">{{ category.name }} &nbsp;</a></div>
+                </div>
+            </div>
+          </div>
+        </div>
+

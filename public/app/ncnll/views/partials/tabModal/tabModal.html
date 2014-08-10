@@ -1,0 +1,41 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title" id="myModalLabel"><span class="label label-warning">{{ selectedItem.productName }}</span></h3>
+            </div>
+            <div id="modal-body" class="modal-body">
+
+                <div class="tabbable tabs-below">
+                  <ul class="nav nav-tabs">
+                    <li ng-repeat="item in [1,2,3,4]" ng-class="{active: selectedTab == ($index+1)}" >
+                      <a style="cursor:pointer;" ng-click="$parent.selectedTab = ($index+1)">{{item}}</a>
+                    </li>
+
+
+                    <!-- <li ng-class="{active: selectedTab == 4}">
+                      <a style="cursor:pointer;" ng-click="selectedTab = 4;">收拾田地</a>
+                    </li> -->
+                  </ul>
+                  <div class="tab-content" ng-repeat="item in [1,2,3,4]" ng-show="selectedTab == ($index+1)" ng-switch on="item">
+                    <div class="animate-switch" ng-switch-when="1" cmng-image-show></div>
+                    <div class="animate-switch" ng-switch-when="2" cmng-video-show></div>
+                    <div class="animate-switch" ng-switch-when="3" cmng-history-image></div>
+                    <div class="animate-switch" ng-switch-when="4" cmng-history-image></div>
+                  </div>
+                  <!-- <div class="tab-content" cmng-video-show ng-show="selectedTab == 1"></div>
+                  <div class="tab-content" cmng-history-image ng-show="selectedTab == 2"></div>
+                  <div class="tab-content" cmng-history-image ng-show="selectedTab == 3"></div>
+                  <div class="tab-content" cmng-image-show ng-show="selectedTab == 4"></div> -->
+
+                </div>
+
+                <div style="height:10px; width:100%;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

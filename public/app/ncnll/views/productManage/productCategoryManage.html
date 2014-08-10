@@ -1,0 +1,44 @@
+<ol class="breadcrumb" style="margin:0;">
+    <li><a href="#!/">首页</a></li>
+    <li class="active">产品类别管理</li>
+</ol>
+
+<form id="categoryForm" style="width:70%;text-align:center;margin:10px auto 10px auto;background:#EFF8F8; padding:10px 0px 10px 10px;">
+
+    <div class="form-group row" ng-repeat="category in categories | orderBy:'categoryOrderIndex'">
+      <div class="col-sm-1" style="padding-top:5px;">
+        <span class="label label-default margin-top:5px;">{{$index}}</span>
+      </div>
+
+      <div class="col-sm-5">
+        <input type="text" ng-click="category.readonly=true" ng-readonly="!category.readonly" class="form-control" ng-model="category.categoryName" placeholder="分类名称">
+      </div>
+      <div class="col-sm-3">
+        <input type="text" ng-click="category.readonly=true" ng-readonly="!category.readonly" class="form-control" ng-model="category.iconName" placeholder="图标">
+      </div>
+      <div class="col-sm-1">
+        <button class="btn btn-sm btn-success" ng-click="goUpside(category);category.enabledEdit=true">上移↑</button>
+      </div>
+      <div class="col-sm-1">
+        <button class="btn  btn-sm btn-success" ng-click="goDownside(category);category.enabledEdit=true">下移↓</button>
+      </div>
+      <div class="col-sm-1">
+        <button class="btn btn-danger" ng-click="remove(category)">删除</button>
+      </div>
+    </div>
+
+    <div class="form-group row" >
+        <div class="col-sm-5">
+        </div>
+        <div class="col-sm-1">
+          <button class="btn btn-danger" ng-click="addCategory()">新增</button>
+        </div>
+        <div class="col-sm-1">
+          <button class="btn btn-primary" ng-click="submitForm()">保存</button>
+        </div>
+        <div class="col-sm-5">
+        </div>
+    </div>
+
+</form>
+

@@ -1,0 +1,99 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <h3 class="modal-title" id="myModalLabel"><span class="label label-warning">{{ selectedItem.name }}</span></h3>
+            </div>
+            <div class="modal-body">
+                <!-- Nav tabs -->
+                <!-- <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">发芽</a></li>
+                    <li><a href="#profile" data-toggle="tab">生长</a></li>
+                    <li><a href="#messages" data-toggle="tab">采摘</a></li>
+                    <li><a href="#settings" data-toggle="tab">收拾田地</a></li>
+                </ul> -->
+
+                <!-- Tab panes -->
+                <!-- <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+
+                    </div>
+                    <div class="tab-pane" id="profile">
+
+                    </div>
+                    <div class="tab-pane" id="messages">
+
+                    </div>
+                    <div class="tab-pane" id="settings">
+
+                    </div>
+                </div> -->
+
+                <div class="tabbable tabs-below">
+                  <ul class="nav nav-tabs">
+                    <li ng-class="{active: selectedTab == 1}">
+                      <a style="cursor:pointer;" ng-click="selectedTab = 1;">面包</a>
+                    </li>
+                    <li ng-class="{active: selectedTab == 2}">
+                      <a style="cursor:pointer;" ng-click="selectedTab = 2;">饺子</a>
+                    </li>
+                    <li ng-class="{active: selectedTab == 3}">
+                      <a style="cursor:pointer;" ng-click="selectedTab = 3;">包子</a>
+                    </li>
+                     <li ng-class="{active: selectedTab == 4}">
+                      <a style="cursor:pointer;" ng-click="selectedTab = 4;">飞机</a>
+                    </li>
+                  </ul>
+
+                  <div class="tab-content" ng-show="selectedTab == 1">
+                     <object >
+                            <param name="movie" value="http://share.vrs.sohu.com/my/v.swf&autoplay=false&id=70302927&skinNum=1&topBar=1&xuid=e11122962">
+                            <param name="allowFullScreen" value="true">
+                            <param name="allowscriptaccess" value="always">
+                            <embed style="width:100%; min-height:350px" allowfullscreen="true" allowscriptaccess="always" quality="high" src="http://share.vrs.sohu.com/my/v.swf&autoplay=false&id=70302927&skinNum=1&topBar=1&xuid=e11122962" type="application/x-shockwave-flash"/></embed>
+                        </object>
+                        <div><a href="#" style="font-size:16px;font-weight: bold;">3 Cake</a><span class="label label-primary" style="float:right;">3Britain</span></div>
+                        <p style="width:100%; text-indent: 10px;">
+                            A cross between apricots and plums, apriums have orange flesh like an apricot but smooth skin like a plum. Certified organic.
+                        </p>
+                  </div>
+
+                  <div class="tab-content" ng-show="selectedTab == 2">
+                    <img style="min-height:250px;width: 100%;" src="/images/producers/dp2.jpg" alt="">
+                        <div><a href="#" style="font-size:16px;font-weight: bold;">2 Cake</a><span class="label label-primary" style="float:right;">2Britain</span></div>
+                        <p style="width:100%; text-indent: 10px;">
+                            A cross between apricots and plums, apriums have orange flesh like an apricot but smooth skin like a plum. Certified organic.
+                        </p>
+                  </div>
+
+                  <div class="tab-content" ng-show="selectedTab == 3">
+                      <object >
+                            <param name="movie" value="http://share.vrs.sohu.com/my/v.swf&autoplay=false&id=70302927&skinNum=1&topBar=1&xuid=e11122962">
+                            <param name="allowFullScreen" value="true">
+                            <param name="allowscriptaccess" value="always">
+                            <embed style="width:100%; min-height:350px" allowfullscreen="true" allowscriptaccess="always" quality="high" src="http://share.vrs.sohu.com/my/v.swf&autoplay=false&id=70302927&skinNum=1&topBar=1&xuid=e11122962" type="application/x-shockwave-flash"/></embed>
+                        </object>
+                        <div><a href="#" style="font-size:16px;font-weight: bold;">3 Cake</a><span class="label label-primary" style="float:right;">3Britain</span></div>
+                        <p style="width:100%; text-indent: 10px;">
+                            A cross between apricots and plums, apriums have orange flesh like an apricot but smooth skin like a plum. Certified organic.
+                        </p>
+                  </div>
+
+                  <div class="tab-content" ng-show="selectedTab == 4">
+                     <img style="min-height:250px;width: 100%;" src="/images/producers/dp1.jpg" alt="">
+                        <div><a href="#" style="font-size:16px;font-weight: bold;">4 Cake</a><span class="label label-primary" style="float:right;">4Britain</span></div>
+                        <p style="width:100%; text-indent: 10px;">
+                            A cross between apricots and plums, apriums have orange flesh like an apricot but smooth skin like a plum. Certified organic.
+                        </p>
+                  </div>
+                </div>
+
+                <div style="height:10px; width:100%;"><span>阅读次数：1221</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

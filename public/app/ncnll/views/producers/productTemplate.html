@@ -1,0 +1,20 @@
+<!-- //生产展示 -->
+        <div class="alert alert-success" style="margin: 10px auto 3px auto; width:98%;">
+          <span class="{{ category.self.iconName }}"></span>&nbsp;&nbsp;{{ category.self.categoryName }}
+          <a ng-if="!hideMoreButton" style="float:right; position:relative;top:-5px;" href="#!/product/category/{{ category.self._id }}" class="btn btn-info btn-sm active" role="button">更多</a>
+        </div>
+        <div class="row" style="padding:5px 0 10px 0;margin:0 0 0 0;">
+          <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in category.items">
+            <div class="thumbnail" >
+           <!--  ng-src="{{ item.imgs[0] }}" -->
+                <div style="height:260px;">
+                  <img style="cursor:pointer;width:100%;height:100%;" ng-src="/prodouct/getProductPhotoByFileId/{{ item.indexImgIds[0] }}" ng-click="openModal(item)" alt="">
+                </div>
+                <div class="caption">
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">{{ item.productName }}</a><span class="label label-primary" style="float:right;">USA</span></div>
+                    <p style="height:50px; text-indent: 25px;">{{ item.productDescription }}</p>
+                    <div style="height:10px;"><span>阅读次数：1221</span><a href="#" style="float:right;">{{ item.user.username }} </a></div>
+                </div>
+            </div>
+          </div>
+        </div>

@@ -1,0 +1,20 @@
+<!-- //单个生产者展示 -->
+       <!--  <div class="alert alert-success" style="margin: 10px auto 3px auto; width:98%;">
+          <span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;{{ category.title }}
+          <a ng-if="!hideMoreButton" style="float:right; position:relative;top:-5px;" href="/category" class="btn btn-info btn-sm active" role="button">更多</a>
+        </div> -->
+        <div class="row" style="padding:5px 0 10px 0;margin:0 0 0 0;">
+          <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in category.items">
+            <div class="thumbnail" >
+              <div style="height:260px;">
+                <a ng-href="#!/producer/products/{{item._id}}">
+                  <img style="cursor:pointer;width:100%;height:100%;" ng-src="/user/photoid/{{item.userPhotoID}}" alt="">
+                </a>
+              </div>
+                <div class="caption">
+                    <div><a ng-href="#!/producer/products/{{item._id}}" style="font-size:16px;font-weight: bold;">{{ item.username }}</a><span class="label label-primary" style="float:right;">{{item.address}}</span></div>
+                    <div style="height:10px;"><span>阅读次数：1221222</span><a  href="#" style="float:right;"></a></div>
+                </div>
+            </div>
+          </div>
+        </div>

@@ -1,0 +1,38 @@
+<!-- //生产展示 -->
+        <!-- <div class="alert alert-success" style="margin: 10px auto 3px auto; width:98%;">
+          <span class="glyphicon glyphicon-leaf"></span>&nbsp;&nbsp;{{ category.title }}
+          <a ng-if="!hideMoreButton" style="float:right; position:relative;top:-5px;" href="/category" class="btn btn-info btn-sm active" role="button">更多</a>
+        </div> -->
+        <div class="row" style="padding:5px 0 10px 0;margin:0 0 0 0;">
+          <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in products" item='item' ng-hide="item.isdeleted">
+            <div class="thumbnail" >
+              <div style="height:260px;">
+                <img style="cursor:pointer;width:100%;height:100%;" ng-src="/prodouct/getProductPhotoByFileId/{{ item.indexImgIds[0] }}" ng-click="openModal(item)" alt="">
+              </div>
+                <div class="caption">
+                    <div>
+                      <a href="#" style="font-size:16px;font-weight: bold;">{{ $index + item.productName }}</a>
+                      <span class="label label-primary" style="float:right;">USA</span>
+                    </div>
+                    <p style="height:100px;">{{item.productDescription}}</p>
+                    <div style="height:10px;">
+                      <span>阅读次数：1221</span>
+                    </div>
+                </div>
+                <div style="text-align:center;">
+                  <a ng-click="openEditModal(item)" class="btn btn-success  btn-sm " role="button">修改</a>
+                  <span style="width:4%;display:inline-block;"></span>
+                  <a style="cursor:pointer;" class="btn btn-danger btn-sm " ng-click="deleteItem(item)" role="button">删除</a>
+                </div>
+            </div>
+          </div>
+         <!--  /**新增项目**/ -->
+          <div class="col-xs-12 col-sm-6 col-md-4" style="margin-top:50px;">
+            <div class="thumbnail" style="background:#D1D2CA;cursor:pointer;" ng-click="openEditModal()">
+                <img src="/images/productManage/add.jpg" alt="">
+                <div class="caption">
+                    <div style="text-align:center;"><h3><span class="label label-danger">新增产品</span></h3></div>
+                </div>
+            </div>
+          </div>
+        </div>

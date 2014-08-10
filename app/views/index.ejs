@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="ncnll" >
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/ncnll.ico" type="image/x-icon" />
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link rel='stylesheet' href='/vendors/bootstrap/dist/css/bootstrap.min.css' />
+    <script type="text/javascript" src="/vendors/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/vendors/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/app/ncnll/directives/displayComponentsDtv.js"></script>
+    <link rel="stylesheet" type="text/css" href="/vendors/noUiSlider/jquery.nouislider.css"/>
+    <script type="text/javascript" src="/vendors/noUiSlider/jquery.nouislider.min.js"></script>
+    <script type="text/javascript" src="/app/ncnll/app.js"></script>
+    <script type="text/javascript" src="/app/ncnll/directives/modalComponentDtv.js"></script>
+    <script type="text/javascript" src="/app/ncnll/controllers/displayCtl.js"></script>
+    <script type="text/javascript" src="/app/ncnll/services/modalSev.js"></script>
+    <!--载入动画，以及提示信息-->
+    <link rel='stylesheet' href='/vendors/iosOverlay/css/iosOverlay.css' />
+    <script type="text/javascript" src="/vendors/iosOverlay/js/spin.min.js"></script>
+    <script type="text/javascript" src="/vendors/iosOverlay/js/iosOverlay.js"></script>
+    <script type="text/javascript" src="/app/ncnll/utils/utilsSev.js"></script>
+
+    <!--文件上传控件-->
+    <script type="text/javascript" src="/vendors/ng-flow/dist/ng-flow-standalone.min.js"></script>
+
+    <style type="text/css">
+    /*.tab-content{
+      background-color: #C0C0C0;
+    }*/
+    </style>
+
+<!--    <link rel='stylesheet' href='/vendors/flowplayer/skin/minimalist.css' />
+    <script src="/vendors/flowplayer/flowplayer.min.js"></script>-->
+    <script>
+        /*$(function(){
+            //videojs.options.flash.swf = "/vendors/videojs/video-js.swf"
+           $("img").click(function(){
+               $('#myModal').modal('show');
+           });
+        });*/
+    </script>
+
+  </head>
+  <body>
+    <!--Loading等提示-->
+    <div id="showNotifySpinner"></div>
+
+    <%- include common/head.ejs %>
+<!--     <div ng-controller="myCtrl">
+    </div>
+ -->
+
+      <!--Body-->
+    <div ng-view></div>
+
+    <%- include common/footer.ejs %>
+
+
+    <!-- Modal -->
+  </body>
+</html>

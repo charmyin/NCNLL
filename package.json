@@ -1,0 +1,49 @@
+{
+  "name": "ncnll",
+  "description": "Ncnll by charmyin~",
+  "keywords": [
+    "express",
+    "mongoose",
+    "mongodb",
+    "passport",
+    "demo"
+  ],
+  "version": "3.0.0",
+  "private": false,
+  "author": "Charmyin <madhums8@gmail.com> (http://charmyin.github.com)",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/charmyin/ncnll.git"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm":  "1.2.x"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "3.4.x",
+    "ejs": "latest",
+    "mongoose": "latest",
+    "connect-mongo": "latest",
+    "connect-flash": "latest",
+    "passport": "latest",
+    "passport-local": "latest",
+    "imager": "latest",
+    "winston": "latest",
+    "notifier": "latest",
+    "async": "latest",
+    "view-helpers": "latest",
+    "forever": "latest",
+    "connect-multiparty": "latest",
+    "gridfs-stream":"latest",
+    "gm":"latest"
+  },
+  "devDependencies": {
+    "supertest": "latest",
+    "should": "latest",
+    "mocha": "latest",
+    "nodemon": "latest"
+  }
+}

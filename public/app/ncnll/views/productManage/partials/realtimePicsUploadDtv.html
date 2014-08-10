@@ -1,0 +1,24 @@
+<!--实时图片支持-->
+                      <form role="form" name="realtimePics" class="form-inline" style="text-align:center;margin:10px 0 10px 0; " >
+                        <div class="row">
+                          <div class="form-group" class="col-sm-6" >
+                            <label>标题:</label>
+                            <input type="text" class="form-control" ng-model="realtimePicsModel.picsTitle" placeholder="标题" name="picsTitle" style="min-width:220px;">
+                            &nbsp;
+                          </div>
+                          <div class="form-group"  class="col-sm-6" >
+                            <label>&nbsp;实时图片编码:</label>
+                            <input type="text" class="form-control" ng-model="realtimePicsModel.realtimeID" placeholder="实时图片编码:100023" name="realtimeID" style="min-width:220px;">
+                          </div>
+                          <div class="form-group" class="col-sm-12" style="margin:10px 0 10px 0;" >
+                            <label>&nbsp;描述:</label>
+                            <textarea type="text" class="form-control" ng-model="realtimePicsModel.description" placeholder="描述" name="description" style="min-width:360px;"></textarea>
+                          </div>
+                        </div>
+                        <div style="text-align: center;">
+                          <button type="button" class="btn btn-primary" ng-click="submitForm()" >保存</button>
+                          <button type="button" class="btn btn-danger" ng-click="removeRealtimePics()" >删除</button> &nbsp;&nbsp;
+                        </div>
+                      </form>
+
+

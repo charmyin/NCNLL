@@ -1,0 +1,84 @@
+<ol class="breadcrumb" style="margin:0;">
+    <li><a href="/">首页</a></li>
+    <li class="active">品牌信息管理</li>
+</ol>
+
+<div style="width:70%;text-align:center;margin:10px auto 10px auto;background:#EFF8F8; padding:10px 0px 10px 10px;" ng-controller="brandInfoCtrl">
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="userName" class="col-sm-2 control-label">品牌名称:</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="name" placeholder="品牌名称" ng-model="brand.brandname">
+      </div>
+      <span  class="col-sm-2" ng-hide="true">格式错误</span>
+    </div>
+    <div class="form-group">
+      <label for="userBirthday" class="col-sm-2 control-label">网址:</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="网址-http://www.baidu.com" ng-model="brand.website">
+      </div>
+      <span  class="col-sm-2" ng-hide="true">格式错误</span>
+    </div>
+    <div class="form-group">
+      <label for="userAddress" class="col-sm-2 control-label">公司地址:</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="userAddress" placeholder="公司地址" ng-model="brand.address">
+      </div>
+      <span  class="col-sm-2" ng-hide="true">格式错误</span>
+    </div>
+    <div class="form-group">
+      <label for="userAddress" class="col-sm-2 control-label">品牌描述:</label>
+      <div class="col-sm-8">
+        <textarea type="text" class="form-control" id="userAddress" style="height:100px;" placeholder="品牌描述" ng-model="brand.introduction"></textarea>
+      </div>
+      <span  class="col-sm-2" ng-hide="true">格式错误</span>
+    </div>
+    <div class="form-group">
+      <label for="userpwd" class="col-sm-2 control-label">用户密码:</label>
+      <div class="col-sm-8">
+        <input type="password" class="form-control" id="userpwd" placeholder="用户密码">
+      </div>
+      <span  class="col-sm-2" ng-hide="true">格式错误</span>
+    </div>
+    <div class="form-group"
+      flow-init="{target: '/brand/uploadBrandPhoto', singleFile:true}"
+      flow-files-submitted="$flow.upload()"
+      flow-file-success="$file.msg = $message"
+      flow-complete=" completed = true "
+
+      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img style="height:200px; width:300px;" ng-show="!$flow.files.length" ng-src="brand/photoid/{{brand.brandPhotoIds[0]}}" />
+          <img style="height:200px; width:300px;" ng-show="completed" flow-img="$flow.files[0]" />
+          <div class="caption" style="text-align:center;margin-top:8px;padding:0px;">
+            <div class="progress progress-striped" ng-class="{active: $flow.files[0].isUploading()}">
+              <div class="progress-bar" role="progressbar"
+                   aria-valuenow="{{$flow.files[0].progress() * 100}}"
+                   aria-valuemin="0"
+                   aria-valuemax="100"
+                   ng-style="{width: ($flow.files[0].progress() * 100) + '%'}">
+                   {{$flow.files[0].progress()*100 | number:0}}%
+              </div>
+            </div>
+            <p style="width:70%;margin:0 auto 0 auto;">
+              <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn>上传品牌图片</span>
+              <span class="btn btn-info" ng-show="$flow.files.length" flow-btn>修改</span>
+              <span class="btn btn-danger" ng-hide="completed" ng-click="$flow.cancel();">取消</span>
+            <!--   <span class="btn btn-danger" ng-show="$flow.files.length" ng-click="$flow.upload()">提交</span> -->
+
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary" ng-click="submitForm()">保存</button>
+      </div>
+    </div>
+  </form>
+</div>
