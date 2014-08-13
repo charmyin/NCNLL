@@ -6,5 +6,12 @@ a {
   color: #00B7FF;
 }
 
-
-
+.scroll-gallery-box {
+  width: 195px;
+  padding: 5px;
+  margin: 4px;
+  float: left;
+  min-height: 200px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+}

@@ -123,7 +123,7 @@
       },
       controller:['$scope', '$http', '$element', '$window',function($scope,$http, $element, $window){
         $scope.submitForm = function(){
-          $scope.isolatePicScrollModel._id = $scope.$parent.basicInfo._id;
+          //$scope.isolatePicScrollModel._id = $scope.$parent.basicInfo._id;
           $scope.isolatePicScrollModel.orderIndex = $($element).attr("tabindex");
           $scope.isolatePicScrollModel.tabType = 0;
           $http({
@@ -150,7 +150,7 @@
           }).success(function(data){
             removeMyself($element, $scope);
             //移出原有数组中的item
-            var arrayPosition;
+            //var arrayPosition;
         /*    for (var i = 0; i < $scope.$parent.basicInfo.itemArray.length; i++) {
               if($scope.$parent.basicInfo.itemArray[i].orderIndex == i){
                 arrayPosition=i;
@@ -276,6 +276,8 @@
     return {
       restrict: 'A',
       controller:['$scope', '$http', '$element', '$window', function($scope,$http, $element, $window){
+
+        //提交表单
         $scope.submitForm = function(){
           $scope.realtimePicsModel._id = $scope.$parent.basicInfo._id;
           $scope.realtimePicsModel.orderIndex = $($element).attr("tabindex");
@@ -291,6 +293,9 @@
             console.log(err);
           });
         };
+
+
+        //移除图片
         $scope.removeRealtimePics = function(){
           var tempObj={};
           tempObj._id = $scope.$parent.basicInfo._id;
