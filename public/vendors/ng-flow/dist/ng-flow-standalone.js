@@ -1563,6 +1563,7 @@ angular.module('flow.init', ['flow.provider'])
   function ($scope, $attrs, $parse, flowFactory) {
     // create the flow object
     var options = angular.extend({}, $scope.$eval($attrs.flowInit));
+    //
     var flow = flowFactory.create(options);
 
     flow.on('catchAll', function (eventName) {

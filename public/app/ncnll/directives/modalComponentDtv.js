@@ -122,6 +122,7 @@
         isolatePicScroll : "&",
       },
       controller:['$scope', '$http', '$element', '$window',function($scope,$http, $element, $window){
+        $scope.tabIndex = $($element).attr("tabindex");
         $scope.submitForm = function(){
           //$scope.isolatePicScrollModel._id = $scope.$parent.basicInfo._id;
           $scope.isolatePicScrollModel.orderIndex = $($element).attr("tabindex");
