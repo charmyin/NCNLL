@@ -496,6 +496,16 @@
     },
 
     /**
+     * Cancel upload of all FlowFile objects and remove them from the list.
+     * @function
+     */
+    saveTitleAndDescription: function () {
+      for (var i = this.files.length - 1; i >= 0; i--) {
+        this.files[i].title +="haha";
+      }
+    },
+
+    /**
      * Returns a number between 0 and 1 indicating the current upload progress
      * of all files.
      * @function

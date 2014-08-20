@@ -15,7 +15,8 @@
                           <div class="panel-body" class="col-sm-12">
                                 <div flow-init="{target:'/prodouct/uploadProductsadfPhoto', query:{productId:this.$parent.$parent.basicInfo._id, tabIndex: this.$parent.tabIndex}}"
                                    flow-files-submitted="$flow.upload()"
-                                   flow-file-added="!!{png:1,jpg:1,jpeg:1}[$file.getExtension()]"
+                                   flow-file-added="!!{png:1,jpg:1,jpeg:1}[$file.getExtension()]"]
+                                   flow-name="obj.flow"
                                    >
                                 <div class="drop" flow-drop ng-class="dropClass">
                                    <span class="btn btn-default" flow-btn>选择文件</span>
@@ -60,19 +61,24 @@
                                         <!-- <span class="sr-only">{{file.progress()}}% Complete</span> -->
                                       </div>
                                     </div>
-                                    <span ng-show="$flow.error" class="label label-warning">失败</span>
+                                    <span ng-show="file.error" class="label label-warning">失败</span>
                                     <div class="form-group">
-                                      <input type="text" style="width:183px;margin-bottom:3px;text-align: center;" placeholder="图片标题"/>
-                                      <textarea ng-hide="$flow.error" style="width:183px;height:60px;margin-bottom:3px; text-indent: 20px;" placeholder="描述"></textarea>
+                                      <input type="text" style="width:183px;margin-bottom:3px;text-align: center;" ng-model="file.title" placeholder="图片标题"/>
+                                      <textarea ng-hide="$flow.error" style="width:183px;height:60px;margin-bottom:3px; text-indent: 20px;" ng-model="file.description" placeholder="描述"></textarea>
                                     </div>
                                     <div class="btn-group">
                                       <a class="btn btn-xs btn-danger" ng-click="file.cancel()">
                                         删除
                                       </a>
+
                                     </div>
                                   </div>
 
                                 </div>
+                                <div style="clear: both;">
+                                   <a class="btn btn-xs btn-primary" ng-click="$flow.saveTitleAndDescription()">保存</a>
+                                </div>
+
 
                               </div>
                           </div>
