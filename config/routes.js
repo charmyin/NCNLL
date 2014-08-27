@@ -76,6 +76,10 @@ module.exports = function (app, passport) {
     app.post("/products/removeVideoUpload", productsManage.removeVideoUpload);
     app.post("/products/saveRealtimePics", productsManage.saveRealtimePics);
     app.post("/products/removeRealtimePics", productsManage.removeRealtimePics);
+    //轮播器图片上传
+    app.post("/products/uploadProductPhotoInTab", productsManage.uploadProductPhotoInTab);
+
+
     //Session中的user
     app.get("/products/getUserProducts",productsManage.getUserProducts);
     //按生产者ID获取产品

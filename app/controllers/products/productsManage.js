@@ -289,9 +289,9 @@ exports.getLimitedElementByCategory = function(req, res){
       });
     };
 
-  if(categories.length > 0){
-    recurseQuery();
-  }
+    if(categories.length > 0){
+      recurseQuery();
+    }
 
   });
 };
@@ -458,7 +458,7 @@ exports.getProductPhotoByFileId = function(req, res){
 };
 */
 
-//上传用户图片
+//上传产品图片
 exports.uploadProductPhoto = function(req, res) {
     var product_id = req.param("product_id");
     flow.post(req, function(status, filename, original_filename, identifier) {
@@ -485,6 +485,7 @@ exports.uploadProductPhoto = function(req, res) {
               //将原图缩小后，放入gridfs中
               imageMagick("./tmp/flow-"+identifier+"tmp")
               .scale('410', '410')
+              //将流写入数据库
               .stream().pipe(writestream)
               .on('close', function () {
                 fs.unlink("./tmp/flow-"+identifier+"tmp");
@@ -517,6 +518,91 @@ exports.uploadProductPhoto = function(req, res) {
                       res.json({success:false, message:"内部错误!"});
                     }
                   });
+                }else{
+                  res.json({success:false, message:"请先保存用户信息!"});
+                }
+              });
+            }
+          });
+        }else if(status=="invalid_flow_request2"){
+          res.send(200, {
+            success:false,
+            "message":"文件太大，请小于1M"
+          });
+        }else{
+          res.send(200, {
+            success:true
+          });
+        }
+    });
+};
+
+
+
+//上传产品Tab中轮播等点击开后的图片
+exports.uploadProductPhotoInTab = function(req, res) {
+    var product_id = req.param("productId");
+    var tabIndex = req.param("tabIndex");
+    console.log(product_id);
+
+    flow.post(req, function(status, filename, original_filename, identifier) {
+
+        if(status=="done"){
+          //fs.createReadStream('D:/test.jpg').pipe(writestream);
+          var writeTmpImgStream = fs.createWriteStream("./tmp/flow-"+identifier+"tmp");
+
+          flow.write(identifier, writeTmpImgStream, {
+            onDone:function(){
+              //将文件写入gridfs
+              var writestream = gfs.createWriteStream({
+                filename: filename, // a filename
+                mode: 'w+', // default value: w+, possible options: w, w+ or r, see [GridStore](http://mongodb.github.com/node-mongodb-native/api-generated/gridstore.html)
+               //chunkSize: 1024,
+               // content_type: 'image/jpeg', // For content_type to work properly, set "mode"-option to "w" too!
+                root: 'productPhotoInTab'
+              });
+
+              // var writeTmpImgStreamSmall = fs.createWriteStream("./flow-"+identifier+"tmp");
+              //将原图缩小后，放入gridfs中
+              imageMagick("./tmp/flow-"+identifier+"tmp")
+              .scale('410', '410')
+              .stream().pipe(writestream)
+              .on('close', function () {
+                fs.unlink("./tmp/flow-"+identifier+"tmp");
+              });
+
+              /*(function (err, stdout, stderr) {
+                stdout.pipe(writestream);
+              });*/
+
+              //清除文件夹中已经存入数据库的文件
+              flow.clean(identifier);
+              //删除原有的产品图片，录入新图片
+              ProductInfo.findOne({_id:product_id}, function (err, product) {
+                if(product){
+                  //找到对应的tabIndex的图片scroll，
+                  //监测是否已经存在，存在则不进行操作，不存在则插入
+                   console.log('保存图片轮播----product-id='+ product_id+' identityfier='+identifier+"    tab-index="+tabIndex);
+                  /*if(product.indexImgIds && product.indexImgIds.length>0){
+                    //删除数据库中的文件
+                    var photoFileId = new mongoose.mongo.BSONPure.ObjectID(product.indexImgIds[0]._id);
+                    gfs.remove({_id:photoFileId, root:'productPhoto'}, function(){
+                    });
+                  }
+                  if(product.indexImgIds){
+                    product.indexImgIds.pop();
+                  }
+                  product.indexImgIds.push(writestream.id);
+                  product.save(function(err){
+                    if(!err) {
+                      res.json({success:true});
+                    }
+                    else {
+                      res.json({success:false, message:"内部错误!"});
+                    }
+                  });*/
+
+                  res.json({success:writestream.id});
                 }else{
                   res.json({success:false, message:"请先保存用户信息!"});
                 }
