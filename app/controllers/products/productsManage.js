@@ -385,6 +385,7 @@ exports.uploadProductPhotoStatus = function(req, res) {
 };
 
 
+//获取首页展示图片
 exports.getProductPhotoByFileId = function(req, res){
   var photoFileId = req.param("photoFileId");
     if(photoFileId && photoFileId.trim()){
@@ -580,7 +581,13 @@ exports.uploadProductPhotoInTab = function(req, res) {
               //删除原有的产品图片，录入新图片
               ProductInfo.findOne({_id:product_id}, function (err, product) {
                 if(product){
-                  //找到对应的tabIndex的图片scroll，
+                  //找到对应的tabIndex的图片scroll
+                  for(var i=0; i<product.scrollPics.length; i++){
+                    if(product.scrollPics[i].orderIndex==tabIndex){
+                        product.scrollPics[i].picIds.push(writestream.id);
+                    }
+                  }
+
                   //监测是否已经存在，存在则不进行操作，不存在则插入
                    console.log('保存图片轮播----product-id='+ product_id+' identityfier='+identifier+"    tab-index="+tabIndex);
                   /*if(product.indexImgIds && product.indexImgIds.length>0){
@@ -592,17 +599,16 @@ exports.uploadProductPhotoInTab = function(req, res) {
                   if(product.indexImgIds){
                     product.indexImgIds.pop();
                   }
-                  product.indexImgIds.push(writestream.id);
+                  product.indexImgIds.push(writestream.id);*/
                   product.save(function(err){
                     if(!err) {
-                      res.json({success:true});
+                      res.json({success:true,picId:writestream.id});
                     }
                     else {
                       res.json({success:false, message:"内部错误!"});
                     }
-                  });*/
+                  });
 
-                  res.json({success:writestream.id});
                 }else{
                   res.json({success:false, message:"请先保存用户信息!"});
                 }
@@ -620,4 +626,22 @@ exports.uploadProductPhotoInTab = function(req, res) {
           });
         }
     });
+};
+
+
+//获取tab页中的图片
+exports.getProductPhotoInTab = function(req, res){
+  var photoFileId = req.param("photoFileId");
+    if(photoFileId && photoFileId.trim()){
+      var readstream = gfs.createReadStream({
+        _id: req.param("photoFileId"),
+        root:'productPhotoInTab'
+      });
+      readstream.pipe(res);
+      readstream.on('error', function (error){
+        res.redirect("/images/common/404.gif");
+      });
+    }else{
+        res.redirect("/images/common/404.gif");
+    }
 };

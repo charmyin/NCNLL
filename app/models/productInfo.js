@@ -29,7 +29,7 @@ var ProductInfo = new Schema({
     orderIndex:{type:Number},
     picsTitle:{type:String, default:''},
     description:{type:String, default:''},
-    picIdentities:[{type:String, default:''}]
+    picIds:[{type:String, default:''}]
   }],
   //缩时摄像
   timelapseVideos:[{
