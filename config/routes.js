@@ -96,6 +96,7 @@ module.exports = function (app, passport) {
     app.get("/prodouct/uploadProductPhoto/:product_id", productsManage.uploadProductPhotoStatus);
     app.get("/prodouct/getProductPhotoByFileId/:photoFileId", productsManage.getProductPhotoByFileId);
     app.get("/prodouct/getProductPhotoInTabByFileId/:photoFileId", productsManage.getProductPhotoInTab);
+    app.post("/product/deleteProductPhotoInTab", productsManage.deleteProductPhotoInTab);
 
 
 

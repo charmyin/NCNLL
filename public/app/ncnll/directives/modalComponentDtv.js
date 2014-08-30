@@ -123,6 +123,7 @@
       },
       controller:['$scope', '$http', '$element', '$window',function($scope,$http, $element, $window){
         $scope.tabIndex = $($element).attr("tabindex");
+
         $scope.submitForm = function(){
           //$scope.isolatePicScrollModel._id = $scope.$parent.basicInfo._id;
           $scope.isolatePicScrollModel.orderIndex = $($element).attr("tabindex");
@@ -137,6 +138,33 @@
           }).error(function(){
 
           });
+        };
+        //通过id和tabindex删除图片gridfs，并清空轮播对象中数组中存储的内容
+        $scope.deletePhotoInTab= function(picId){
+          //$scope.isolatePicScrollModel._id = $scope.$parent.basicInfo._id;
+          var orderIndex = $($element).attr("tabindex");
+          var params = {};
+          params.fileId = picId;
+          params.tabIndex = orderIndex;
+          params.productId = $scope.$parent.basicInfo._id;
+
+           $http({
+            url:"/product/deleteProductPhotoInTab",
+            data:params,
+            method:"POST",
+            headers:{'Content-Type':'application/json; charset=UTF-8'}
+          }).success(function(data){
+            for(var i=0; i<$scope.isolatePicScrollModel.picIds.length; i++){
+              if(picId == $scope.isolatePicScrollModel.picIds[i]){
+                $scope.isolatePicScrollModel.picIds.splice(i, 1);
+                //delete $scope.isolatePicScrollModel.picIds[i];
+              }
+            }
+          }).error(function(){
+
+          });
+          //$scope.isolatePicScrollModel.picIds.pop();
+
         };
 
         $scope.removePicsScroll = function(){

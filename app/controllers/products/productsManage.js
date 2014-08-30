@@ -566,7 +566,7 @@ exports.uploadProductPhotoInTab = function(req, res) {
               // var writeTmpImgStreamSmall = fs.createWriteStream("./flow-"+identifier+"tmp");
               //将原图缩小后，放入gridfs中
               imageMagick("./tmp/flow-"+identifier+"tmp")
-              .scale('410', '410')
+              .scale('810', '810')
               .stream().pipe(writestream)
               .on('close', function () {
                 fs.unlink("./tmp/flow-"+identifier+"tmp");
@@ -588,18 +588,6 @@ exports.uploadProductPhotoInTab = function(req, res) {
                     }
                   }
 
-                  //监测是否已经存在，存在则不进行操作，不存在则插入
-                   console.log('保存图片轮播----product-id='+ product_id+' identityfier='+identifier+"    tab-index="+tabIndex);
-                  /*if(product.indexImgIds && product.indexImgIds.length>0){
-                    //删除数据库中的文件
-                    var photoFileId = new mongoose.mongo.BSONPure.ObjectID(product.indexImgIds[0]._id);
-                    gfs.remove({_id:photoFileId, root:'productPhoto'}, function(){
-                    });
-                  }
-                  if(product.indexImgIds){
-                    product.indexImgIds.pop();
-                  }
-                  product.indexImgIds.push(writestream.id);*/
                   product.save(function(err){
                     if(!err) {
                       res.json({success:true,picId:writestream.id});
@@ -644,4 +632,56 @@ exports.getProductPhotoInTab = function(req, res){
     }else{
         res.redirect("/images/common/404.gif");
     }
+};
+
+
+exports.deleteProductPhotoInTab = function(req, res){
+  var product_id = req.param("productId");
+  var tabIndex = req.param("tabIndex");
+  var photoFileId = req.param("fileId");
+
+  console.log(product_id+"----"+tabIndex+"----"+photoFileId);
+  try{
+      //删除原有的产品图片，录入新图片
+    ProductInfo.findOne({_id:product_id}, function (err, product) {
+      if(product){
+        //找到对应的tabIndex的图片scroll
+
+        //删除product中的链接
+         for(var i=0; i<product.scrollPics.length; i++){
+            if(product.scrollPics[i].orderIndex==tabIndex){
+                for(var j=0; j<product.scrollPics[i].picIds.length; j++){
+                  if(photoFileId == product.scrollPics[i].picIds[j]){
+                    product.scrollPics[i].picIds.splice(j, 1);
+                    //delete $scope.isolatePicScrollModel.picIds[i];
+                  }
+                }
+            }
+          }
+
+
+        product.save(function(err){
+          if(!err) {
+            res.json({success:true});
+          }
+          else {
+            res.json({success:false, message:"内部错误!"});
+          }
+        });
+
+      }else{
+        res.json({success:false, message:"请先保存用户信息!"});
+      }
+    });
+
+    //删除gfs中的文件
+    gfs.remove({_id:photoFileId, root:'productPhotoInTab'}, function(){
+    });
+  }catch(e){
+    console.log(e);
+    res.json({success:false, message:"内部错误!"});
+  }
+
+
+
 };
