@@ -26,8 +26,6 @@
                                 <div>
 
 
-
-
                                  <div ng-repeat="picId in isolatePicScrollModel.picIds " class="scroll-gallery-box " ng-if="picId">
                                 <!--   <span class="title" style="text-overflow:ellipsis;">{{file.name}}</span> -->
                                   <div class="thumbnail"  style="margin-bottom: 4px;">
@@ -65,13 +63,14 @@
                                         <!-- <span class="sr-only">{{file.progress()}}% Complete</span> -->
                                       </div>
                                     </div>
+                                    <div ng-show="file.error" style="height:22px;width:100%;font-size:6px; ">应为小于5M的JPG或PNG图片</div>
                                     <span ng-show="file.error" class="label label-warning">失败</span>
                                    <!--  <div class="form-group">
                                      <input type="text" style="width:183px;margin-bottom:3px;text-align: center;" ng-model="file.title" placeholder="图片标题"/>
                                      <textarea ng-hide="$flow.error" style="width:183px;height:60px;margin-bottom:3px; text-indent: 20px;" ng-model="file.description" placeholder="描述"></textarea>
                                    </div> -->
                                     <div class="btn-group">
-                                      <a class="btn btn-xs btn-danger" ng-click="file.cancel()">
+                                      <a class="btn btn-xs btn-danger" ng-click="deleteNewUploadedPhotoInTab(file);">
                                         删除{{$messge}}
                                       </a>
                                     </div>
@@ -88,6 +87,6 @@
                         </div>
                         <div style="text-align: center;">
                           <button type="button" class="btn btn-primary" ng-click="submitForm()" >保存</button>
-                         <!--  <button type="button" class="btn btn-danger" ng-click="removePicsScroll()" >删除</button> -->
+                        <button type="button" class="btn btn-danger" ng-click="removePicsScroll()" >删除</button>
                         </div>
                       </form>

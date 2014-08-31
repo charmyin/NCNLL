@@ -14,7 +14,7 @@ var flow = require('../../../lib/flow-node.js')('tmp');
 
 exports.saveProductBasicInfo = function(req, res){
   var productInfo = new ProductInfo(req.body);
-  //console.log(req.body);
+
     //update
     ProductInfo.findOne({_id:productInfo._id}, function(err, dbProductInfo){
       if (err){
@@ -80,22 +80,56 @@ exports.savePicsScroll = function(req, res){
   });
 };
 
-//删除图片轮播tab
+//删除图片轮播tab，并清除关联图片
 exports.removePicsScroll = function(req, res){
   var picsScroll = req.body;
-  //先删除原有记录
-  ProductInfo.findOneAndUpdate({
-    _id:picsScroll._id
-  }, {
-    $pull: { scrollPics:{"orderIndex": picsScroll.orderIndex} }
-    //$push: { scrollPics: picsScroll }
-  }, function(err, dbProductInfo){
-    if (err){
-      res.json({"success":false, "error":err});
-      return;
-    }
-    res.json({"success":true, "productInfo":dbProductInfo});
-  });
+
+    //update
+    ProductInfo.findOne({_id:picsScroll._id}, function(err, dbProductInfo){
+      if (err){
+        res.json({"success":false, "error":err});
+        return;
+      }
+      if(dbProductInfo){
+
+        // 清除相关图片
+        dbProductInfo.scrollPics.forEach(function(item){
+          if(item.orderIndex == picsScroll.orderIndex){
+            item.picIds.forEach(function(picId){
+              gfs.remove({_id:picId, root:'productPhotoInTab'}, function(){
+              });
+            });
+          }
+        });
+        console.log(dbProductInfo.scrollPics);
+        console.log('--------------------------------------'+picsScroll.orderIndex);
+        console.log({orderIndex : parseInt(picsScroll.orderIndex)});
+        console.log('--------------------------------------'+picsScroll.orderIndex);
+
+        for(var i = 0; i<dbProductInfo.scrollPics.length; i++){
+          if(dbProductInfo.scrollPics[i].orderIndex == picsScroll.orderIndex){
+            dbProductInfo.scrollPics.splice(i, 1);
+          }
+        }
+
+        console.log(dbProductInfo.scrollPics);
+
+        
+
+        dbProductInfo.save(function(err){
+          if(!err){
+            //返回对象，重新渲染页面
+            res.json({"success":true, "productInfo":dbProductInfo});
+          }else{
+            res.json({"success":false, "error":err});
+          }
+        });
+      }else{
+        res.json({"success":false, "error":err});
+      }
+    });
+
+
 };
 
 
@@ -526,9 +560,9 @@ exports.uploadProductPhoto = function(req, res) {
             }
           });
         }else if(status=="invalid_flow_request2"){
-          res.send(200, {
+          res.send(500 , {
             success:false,
-            "message":"文件太大，请小于1M"
+            "message":"文件太大，请小于4M"
           });
         }else{
           res.send(200, {
@@ -604,9 +638,9 @@ exports.uploadProductPhotoInTab = function(req, res) {
             }
           });
         }else if(status=="invalid_flow_request2"){
-          res.send(200, {
+          res.send(500, {
             success:false,
-            "message":"文件太大，请小于1M"
+            "message":"文件太大，请小于4M"
           });
         }else{
           res.send(200, {
@@ -617,7 +651,7 @@ exports.uploadProductPhotoInTab = function(req, res) {
 };
 
 
-//获取tab页中的图片
+//获取tab页中的轮播图片
 exports.getProductPhotoInTab = function(req, res){
   var photoFileId = req.param("photoFileId");
     if(photoFileId && photoFileId.trim()){

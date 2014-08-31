@@ -125,7 +125,7 @@
         $scope.tabIndex = $($element).attr("tabindex");
 
         $scope.submitForm = function(){
-          //$scope.isolatePicScrollModel._id = $scope.$parent.basicInfo._id;
+          $scope.isolatePicScrollModel._id = $scope.$parent.basicInfo._id;
           $scope.isolatePicScrollModel.orderIndex = $($element).attr("tabindex");
           $scope.isolatePicScrollModel.tabType = 0;
           $http({
@@ -148,7 +148,7 @@
           params.tabIndex = orderIndex;
           params.productId = $scope.$parent.basicInfo._id;
 
-           $http({
+          $http({
             url:"/product/deleteProductPhotoInTab",
             data:params,
             method:"POST",
@@ -164,6 +164,35 @@
 
           });
           //$scope.isolatePicScrollModel.picIds.pop();
+
+        };
+
+        //删除刚上传的轮播图片文件
+        $scope.deleteNewUploadedPhotoInTab = function(file){
+          if(file.chunks && file.chunks.length>0){
+
+            var obj = eval("("+file.chunks[0].xhr.response+")");
+
+
+            var orderIndex = $($element).attr("tabindex");
+            var params = {};
+            params.fileId = obj.picId;
+            params.tabIndex = orderIndex;
+            params.productId = $scope.$parent.basicInfo._id;
+
+            $http({
+              url:"/product/deleteProductPhotoInTab",
+              data:params,
+              method:"POST",
+              headers:{'Content-Type':'application/json; charset=UTF-8'}
+            }).success(function(data){
+              //删除dom中的元素
+              file.cancel();
+            }).error(function(){
+
+            });
+
+          }
 
         };
 
