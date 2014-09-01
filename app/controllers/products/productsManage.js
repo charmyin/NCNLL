@@ -101,10 +101,6 @@ exports.removePicsScroll = function(req, res){
             });
           }
         });
-        console.log(dbProductInfo.scrollPics);
-        console.log('--------------------------------------'+picsScroll.orderIndex);
-        console.log({orderIndex : parseInt(picsScroll.orderIndex)});
-        console.log('--------------------------------------'+picsScroll.orderIndex);
 
         for(var i = 0; i<dbProductInfo.scrollPics.length; i++){
           if(dbProductInfo.scrollPics[i].orderIndex == picsScroll.orderIndex){
@@ -114,7 +110,7 @@ exports.removePicsScroll = function(req, res){
 
         console.log(dbProductInfo.scrollPics);
 
-        
+
 
         dbProductInfo.save(function(err){
           if(!err){
