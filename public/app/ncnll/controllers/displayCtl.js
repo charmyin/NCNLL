@@ -1,5 +1,5 @@
 (function(){
-  var displayController=angular.module("displayCtl", ["modalSev", 'spinDelayMod']);
+  var displayController=angular.module("displayCtl", ["modalSev", 'spinDelayMod', 'ngTouch']);
 
   /************************首页head类别*******************************/
   displayController.controller("headCategoryCtrl",['$scope','$http',function($scope,$http){

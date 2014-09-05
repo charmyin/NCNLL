@@ -1,9 +1,25 @@
 <div>
-  <div style="width:9%;display:inline-block;height:100px; background:blue; text-align: center;">&lt;</div>
-  <div style="width:80%;display:inline-block;">
-    <img style="min-height:210px;width:100%;" src="/images/producers/2.jpg" alt="">
+  <!-- <div style="width:9%;display:inline-block;height:100px; background:blue; text-align: center;">&lt;</div> -->
+  <div style="width:100%;display:inline-block;">
+   <div class="container cmScrollSlider">
+      <img ng-repeat="slide in slides" class="cmScrollSlide cmScrollSlide-animation"
+           style="height:100%;width:100%;"
+           ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+           ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
+      <a class="cmScrollArrow cmScrollPrev" href="javascript:void(0);" ng-click="nextSlide()"></a>
+      <a class="cmScrollArrow cmScrollNext" href="javascript:void(0);" ng-click="prevSlide()"></a>
+      <nav class="cmScrollNav">
+          <div class="cmScrollWrapper">
+              <ul class="cmScrollDots">
+                  <li class="cmScrollDot" ng-repeat="slide in slides">
+                      <a href="javascript:void(0);" ng-class="{'active':isCurrentSlideIndex($index)}"
+                         ng-click="setCurrentSlideIndex($index);">&nbsp;</a></li>
+              </ul>
+          </div>
+      </nav>
   </div>
-  <div style="width:9%;display:inline-block; background:blue;height:100px; text-align: center;">&gt;</div>
+  </div>
+  <!-- <div style="width:9%;display:inline-block; background:blue;height:100px; text-align: center;">&gt;</div> -->
 </div>
 <div><a href="#" style="font-size:16px;font-weight: bold;">4 Cake</a><span class="label label-primary" style="float:right;">4Britain</span></div>
 <p style="width:100%; text-indent: 10px;">

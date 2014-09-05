@@ -1,4 +1,4 @@
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,7 +12,6 @@
                     <li ng-repeat="item in [1,2,3,4]" ng-class="{active: selectedTab == ($index+1)}" >
                       <a style="cursor:pointer;" ng-click="$parent.selectedTab = ($index+1)">{{item}}</a>
                     </li>
-
 
                     <!-- <li ng-class="{active: selectedTab == 4}">
                       <a style="cursor:pointer;" ng-click="selectedTab = 4;">收拾田地</a>

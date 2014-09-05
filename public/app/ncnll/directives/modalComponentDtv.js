@@ -68,18 +68,80 @@
 
 	});
 
-	modalComponentDirective.directive('cmngImageShow', function () {
+
+//http://onehungrymind.com/demos/slider/#
+	modalComponentDirective.directive('cmngImageShow',['$animate',function($animate) {
 		function link(scope, element, attrs) {
+        scope.slides = [
+            {image: '/images/producers/1.jpg', description: 'Image 00'},
+            {image: '/images/producers/2.jpg', description: 'Image 01'},
+            {image: '/images/producers/3.jpg', description: 'Image 02'},
+            {image: '/images/producers/4.jpg', description: 'Image 03'},
+            {image: '/images/producers/2.jpg', description: 'Image 04'},
+            {image: '/images/producers/1.jpg', description: 'Image 00'},
+            {image: '/images/producers/2.jpg', description: 'Image 01'},
+            {image: '/images/producers/3.jpg', description: 'Image 02'},
+            {image: '/images/producers/4.jpg', description: 'Image 03'},
+            {image: '/images/producers/2.jpg', description: 'Image 01'},
+            {image: '/images/producers/3.jpg', description: 'Image 02'},
+            {image: '/images/producers/4.jpg', description: 'Image 03'},
+            {image: '/images/producers/2.jpg', description: 'Image 04'}
+        ];
+
+        scope.currentIndex = 0;
+
+        scope.setCurrentSlideIndex = function (index) {
+            scope.currentIndex = index;
+        };
+
+        scope.isCurrentSlideIndex = function (index) {
+            return scope.currentIndex === index;
+        };
+
+        scope.prevSlide = function () {
+            scope.currentIndex = (scope.currentIndex < scope.slides.length - 1) ? ++scope.currentIndex : 0;
+        };
+
+        scope.nextSlide = function () {
+            scope.currentIndex = (scope.currentIndex > 0) ? --scope.currentIndex : scope.slides.length - 1;
+        };
+
 
 	  }
 
 		return {
 			restrict: 'A',
+/*      scope:{
+        isolateRealtimePics:"="
+      },*/
 			templateUrl:"/app/ncnll/views/partials/tabModal/imageShow.html",
 			link:link
 		};
 
-	});
+	}]).animation('.cmScrollSlide-animation', function () {
+        return {
+            addClass: function (element, className, done) {
+                if (className == 'ng-hide') {
+                    TweenMax.to(element, 0.5, {left: -element.parent().width(), onComplete: done });
+                }
+                else {
+                    done();
+                }
+            },
+            removeClass: function (element, className, done) {
+                if (className == 'ng-hide') {
+                    element.removeClass('ng-hide');
+
+                    TweenMax.set(element, { left: element.parent().width() });
+                    TweenMax.to(element, 0.5, {left: 0, onComplete: done });
+                }
+                else {
+                    done();
+                }
+            }
+        };
+    });
+
 
 
 
