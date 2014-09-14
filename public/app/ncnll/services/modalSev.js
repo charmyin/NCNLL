@@ -1,10 +1,15 @@
 (function(){
     var modalSev = angular.module('modalSev', []);
-    modalSev.factory('modalGenerateSev', ["$compile", function($compile) {
+    modalSev.factory('modalGenerateSev', ["$compile", '$sce', function($compile, $sce) {
       return function(scope, item){
           //渲染展示用modal，并显示
           //根据data生成modal
          //console.log(item)
+
+         scope.trustSrc = function(src) {
+            return $sce.trustAsResourceUrl(src);
+          };
+
           scope.selectedItem = item;
           scope.allTabs = [];
           scope.allTabs = scope.allTabs.concat(item.realtimePics);
@@ -41,8 +46,12 @@
     }]);
 
     /*******************新增，修改产品的modal***********************/
-    modalSev.factory('modalEditGenerateSev',  ["$compile", '$window', 'addTabInModalSev', '$route', function($compile, $window, addTabInModalSev, $route) {
+    modalSev.factory('modalEditGenerateSev',  ["$compile", '$window', 'addTabInModalSev', '$route', '$sce', function($compile, $window, addTabInModalSev, $route, $sce) {
       return function(outScope, item){
+
+          outScope.trustSrc = function(src) {
+            return $sce.trustAsResourceUrl(src);
+          };
 
           var html = '<div id="cmng-tab-edit-modal" selected-tab-attr="selectedTab" cmng-tab-edit-modal product-basic-info-attr="basicInfo" add-tab-in-modal-sev-attr="addTabInModalSev"></div>';
 
