@@ -72,7 +72,11 @@
 //http://onehungrymind.com/demos/slider/#
 	modalComponentDirective.directive('cmngImageShow',['$animate',function($animate) {
 		function link(scope, element, attrs) {
-        scope.slides = [
+        scope.slides = [];
+        for(var i=0; i<scope.item.picIds.length; i++){
+          scope.slides.push({image: 'prodouct/getProductPhotoInTabByFileId/'+scope.item.picIds[i], description: '图片'});
+        }
+       /* scope.slides = [
             {image: '/images/producers/1.jpg', description: 'Image 00'},
             {image: '/images/producers/2.jpg', description: 'Image 01'},
             {image: '/images/producers/3.jpg', description: 'Image 02'},
@@ -86,7 +90,7 @@
             {image: '/images/producers/3.jpg', description: 'Image 02'},
             {image: '/images/producers/4.jpg', description: 'Image 03'},
             {image: '/images/producers/2.jpg', description: 'Image 04'}
-        ];
+        ];*/
 
         scope.currentIndex = 0;
 

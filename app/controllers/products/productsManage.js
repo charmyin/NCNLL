@@ -124,8 +124,6 @@ exports.removePicsScroll = function(req, res){
         res.json({"success":false, "error":err});
       }
     });
-
-
 };
 
 

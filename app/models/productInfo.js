@@ -27,7 +27,7 @@ var ProductInfo = new Schema({
   scrollPics:[{
     tabType:{type:Number},
     orderIndex:{type:Number},
-    picsTitle:{type:String, default:''},
+    title:{type:String, default:''},
     description:{type:String, default:''},
     picIds:[{type:String, default:''}]
   }],
@@ -35,7 +35,7 @@ var ProductInfo = new Schema({
   timelapseVideos:[{
     tabType:{type:Number},
     orderIndex:{type:Number},
-    videoTitle:{type:String, default:''},
+    title:{type:String, default:''},
     videoLink:{type:String, default:''},
     description:{type:String, default:''}
   }],
@@ -43,7 +43,7 @@ var ProductInfo = new Schema({
   realtimePics:[{
     tabType:{type:Number},
     orderIndex:{type:Number},
-    picsTitle:{type:String, default:''},
+    title:{type:String, default:''},
     realtimeID:{type:String, default:''},
     description:{type:String, default:''}
   }]

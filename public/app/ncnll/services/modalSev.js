@@ -2,10 +2,16 @@
     var modalSev = angular.module('modalSev', []);
     modalSev.factory('modalGenerateSev', ["$compile", function($compile) {
       return function(scope, item){
-        //渲染展示用modal，并显示
+          //渲染展示用modal，并显示
           //根据data生成modal
+         //console.log(item)
           scope.selectedItem = item;
+          scope.allTabs = [];
+          scope.allTabs = scope.allTabs.concat(item.realtimePics);
+          scope.allTabs=scope.allTabs.concat(item.timelapseVideos);
+          scope.allTabs=scope.allTabs.concat(item.scrollPics);
           scope.selectedTab = 1;
+          console.log(scope.allTabs)
           var html = '<div id="cmng-tab-modal" cmng-tab-modal></div>';
 
           // Step 1: parse HTML into DOM element
