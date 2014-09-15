@@ -1,10 +1,22 @@
 (function(){
     var modalSev = angular.module('modalSev', []);
-    modalSev.factory('modalGenerateSev', ["$compile", '$sce', function($compile, $sce) {
+    modalSev.factory('modalGenerateSev', ["$compile", '$sce', "$http", function($compile, $sce, $http) {
       return function(scope, item){
           //渲染展示用modal，并显示
           //根据data生成modal
          //console.log(item)
+
+         //记录产品阅读次数
+
+         $http.post('/productInfo/increaseBrowseCount', {"id":item._id}).success(function(data){
+            if(data.success){
+              if(item.browseCount){
+                 item.browseCount= item.browseCount+1;
+               }else{
+                 item.browseCount=1;
+               }
+            }
+         });
 
          scope.trustSrc = function(src) {
             return $sce.trustAsResourceUrl(src);
@@ -16,7 +28,7 @@
           scope.allTabs=scope.allTabs.concat(item.timelapseVideos);
           scope.allTabs=scope.allTabs.concat(item.scrollPics);
           scope.selectedTab = 1;
-          console.log(scope.allTabs)
+          //console.log(scope.allTabs)
           var html = '<div id="cmng-tab-modal" cmng-tab-modal></div>';
 
           // Step 1: parse HTML into DOM element

@@ -23,6 +23,8 @@ var ProductInfo = new Schema({
     type:String
   }],
 
+  //浏览次数
+  browseCount:{type:Number, defalult:0},
   //图片轮播
   scrollPics:[{
     tabType:{type:Number},

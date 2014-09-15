@@ -49,6 +49,19 @@ exports.saveProductBasicInfo = function(req, res){
     });
 };
 
+//记录产品浏览次数
+exports.increaseBrowseCount = function(req, res){
+    //**** 同一个IP过滤
+    ProductInfo.update({ _id: req.param("id") }, { $inc: { browseCount: 1 } }, { multi: false }, function (err, numberAffected, raw) {
+      if (err) {
+        res.json({"success":false});
+      }else{
+        res.json({"success":true});
+      }
+      return;
+    });
+};
+
 //保存图片轮播
 exports.savePicsScroll = function(req, res){
   var picsScroll = req.body;

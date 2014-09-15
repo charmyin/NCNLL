@@ -13,7 +13,7 @@
                 <div class="caption">
                     <div><a href="#" style="font-size:16px;font-weight: bold;">{{ item.productName }}</a><span class="label label-primary" style="float:right;">USA</span></div>
                     <p style="height:50px; text-indent: 25px;">{{ item.productDescription }}</p>
-                    <div style="height:10px;"><span>阅读次数：1221</span><a href="#!/producer/products/{{item.user._id}}" style="float:right;">{{ item.user.username }} </a></div>
+                    <div style="height:10px;"><span>阅读次数：{{item.browseCount}}</span><a href="#!/producer/products/{{item.user._id}}" style="float:right;">{{ item.user.username }} </a></div>
                 </div>
             </div>
           </div>
