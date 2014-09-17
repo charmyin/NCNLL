@@ -214,7 +214,7 @@ exports.changePassword = function(req, res){
 exports.getAllProducers = function(req, res){
   //1代表生产者
   var query = User.find({"userrole":1});
-  query.select('username email userrole phonenumber birthday introduction website address userPhotoID');
+  query.select('username email userrole phonenumber birthday introduction website address userPhotoID browseCount ');
   query.exec(function(err, producers){
     if(!err) {
       res.json({success:true, 'producers':[{ "items":producers}] });
@@ -225,6 +225,8 @@ exports.getAllProducers = function(req, res){
     }
   });
 };
+
+
 
 
 // Handle cross-domain requests

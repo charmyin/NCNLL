@@ -17,6 +17,8 @@ var UserSchema = new Schema({
   email: { type: String, default: '' },
   //producer, comsumer, manager
   userrole:{type:Number},
+  //浏览次数
+  browseCount:{type:Number, defalult:0},
   //电话号码
   phonenumber: { type: String, default: '' },
   //生日

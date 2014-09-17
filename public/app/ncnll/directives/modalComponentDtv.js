@@ -455,6 +455,24 @@
 
   });
 
+
+  modalComponentDirective.directive('cmngPraise', function () {
+    function link(scope, element, attrs) {
+
+      scope.praisedUsersCount=scope.item.praisedUsers.length;
+    }
+
+    return {
+      restrict: 'E',
+      replace: true,
+      template:'<a href="#" style="float:left;min-width:50px;margin-left:10px;"><img src="/images/productManage/applause.jpg" style="height:20px;width:20px;float:left;" /> <span style="float:right;"> 赞({{praisedUsersCount}})</span></a>',
+      link:link
+    };
+
+  });
+
+
+
 })();
 
 

@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var ProductInfo =  mongoose.model("ProductInfo");
+var User =  mongoose.model("User");
 var Category =  mongoose.model("Category");
 var Brand = mongoose.model('Brand');
 
@@ -367,6 +368,16 @@ exports.getProductByCategory = function(req, res){
 //按分类获取产品
 exports.getProductsByProducer = function(req, res){
   var producerId = req.param("_id");
+
+  //记录生产者浏览次数
+  //TODO 同一个IP过滤
+  User.update({ _id: producerId }, { $inc: { browseCount: 1 } }, { multi: false }, function (err, numberAffected, raw) {
+     if (err) {
+        console.log(err);
+      }
+  });
+
+
   Brand.findOne({"user":producerId}).populate({
      path:"user",
      select:"username email userrole phonenumber birthday introduction website address userPhotoID"

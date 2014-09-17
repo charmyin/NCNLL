@@ -11,9 +11,14 @@
                   <img style="cursor:pointer;width:100%;height:100%;" ng-src="/prodouct/getProductPhotoByFileId/{{ item.indexImgIds[0] }}" ng-click="openModal(item)" alt="">
                 </div>
                 <div class="caption">
-                    <div><a href="#" style="font-size:16px;font-weight: bold;">{{ item.productName }}</a><span class="label label-primary" style="float:right;">USA</span></div>
+                    <div><a href="#" style="font-size:16px;font-weight: bold;">{{ item.productName }}</a><span class="label label-primary" style="float:right;">产地</span></div>
                     <p style="height:50px; text-indent: 25px;">{{ item.productDescription }}</p>
-                    <div style="height:10px;"><span>阅读次数：{{item.browseCount}}</span><a href="#!/producer/products/{{item.user._id}}" style="float:right;">{{ item.user.username }} </a></div>
+                    <div style="height:10px;">
+                      <span style="float:left;color:#428bca;">浏览次数:{{item.browseCount}}</span>
+                      <cmng-praise/>
+                      <a href="#!/producer/products/{{item.user._id}}" style="float:right;">{{ item.user.username }} </a>
+
+                    </div>
                 </div>
             </div>
           </div>
