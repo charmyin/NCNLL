@@ -13,7 +13,10 @@
               </div>
                 <div class="caption">
                     <div><a ng-href="#!/producer/products/{{item._id}}" style="font-size:16px;font-weight: bold;">{{ item.username }}</a><span class="label label-primary" style="float:right;">{{item.address}}</span></div>
-                    <div style="height:10px;"><span>阅读次数：1221222</span><a  href="#" style="float:right;"></a></div>
+
+                    <p style="height:50px; text-indent: 25px;">{{ item.introduction }}</p>
+
+                    <div style="height:10px;"><span>阅读次数：{{item.browseCount}}</span><a  href="#" style="float:right;"></a></div>
                 </div>
             </div>
           </div>

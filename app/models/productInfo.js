@@ -25,6 +25,12 @@ var ProductInfo = new Schema({
 
   //浏览次数
   browseCount:{type:Number, defalult:0},
+  //点赞次数
+  praisedUsers:[{
+                  userId:{type: Schema.ObjectId, ref:'User'},
+                  createdAt: { type : Date, default : Date.now }
+                }],
+
   //图片轮播
   scrollPics:[{
     tabType:{type:Number},
