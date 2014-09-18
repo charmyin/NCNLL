@@ -100,8 +100,8 @@ module.exports = function (app, passport) {
     app.get("/prodouct/getProductPhotoInTabByFileId/:photoFileId", productsManage.getProductPhotoInTab);
     app.post("/product/deleteProductPhotoInTab", productsManage.deleteProductPhotoInTab);
 
-
-
+    //产品点赞
+    app.post("/product/praiseOrNot", productsManage.productPraiseOrNot);
 
     //Upload and download
     app.post('/upload', multipartMiddleware, fileUploader.uploadPostedFile);

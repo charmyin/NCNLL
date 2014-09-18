@@ -27,7 +27,7 @@ var ProductInfo = new Schema({
   browseCount:{type:Number, defalult:0},
   //点赞次数
   praisedUsers:[{
-                  userId:{type: Schema.ObjectId, ref:'User'},
+                  user:{type: Schema.ObjectId, ref:'User'},
                   createdAt: { type : Date, default : Date.now }
                 }],
 

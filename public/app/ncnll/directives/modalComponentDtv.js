@@ -456,20 +456,48 @@
   });
 
 
-  modalComponentDirective.directive('cmngPraise', function () {
+  modalComponentDirective.directive('cmngPraise',['$http', function($http) {
     function link(scope, element, attrs) {
 
       scope.praisedUsersCount=scope.item.praisedUsers.length;
+      //遍历user，如果本人存在，则：取消赞;否则：赞
+      scope.praiseStr = "赞";
+
+      scope.praiseProduct = function(){
+
+        if(scope.praiseStr == "赞"){
+          //ajax请求，修改本人点赞状态
+          $http.post('/product/praiseOrNot', {id:scope.item._id, isPraise:true}).success(function(msg){
+            scope.praiseStr = "取消赞";
+            scope.praisedUsersCount++;
+          }).error(function(data, status, headers, config) {
+            //TODO 提示错误
+          });
+
+        }else{
+          //ajax请求，修改本人点赞状态
+          $http.post('/product/praiseOrNot', {id:scope.item._id, isPraise:false}).success(function(msg){
+            scope.praisedUsersCount--;
+            scope.praiseStr = "赞";
+          });
+
+        }
+
+
+        console.log(scope.item._id);
+      };
+
+
     }
 
     return {
       restrict: 'E',
       replace: true,
-      template:'<a href="#" style="float:left;min-width:50px;margin-left:10px;"><img src="/images/productManage/applause.jpg" style="height:20px;width:20px;float:left;" /> <span style="float:right;"> 赞({{praisedUsersCount}})</span></a>',
+      template:'<a href="javascript:void(0);" ng-click="praiseProduct();"style="float:left;min-width:50px;margin-left:10px;"><img src="/images/productManage/applause.jpg" style="height:20px;width:20px;float:left;" /> <span style="float:right;"> {{praiseStr}}({{praisedUsersCount}})</span></a>',
       link:link
     };
 
-  });
+  }]);
 
 
 

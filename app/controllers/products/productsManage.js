@@ -737,3 +737,58 @@ exports.deleteProductPhotoInTab = function(req, res){
 
 
 };
+
+
+exports.productPraiseOrNot = function(req, res){
+  var productId = req.param("id");
+  var isPraise = req.param("isPraise");
+  if(!req.user){
+    res.json({success:false, message:"请先登录!"});
+    return;
+  }
+
+    ProductInfo.findOne({_id:productId}, function (err, product) {
+      if(product){
+
+        var isCurrentUserPraised = false;
+
+        var praisedUsers = product.praisedUsers;
+        if(praisedUsers){
+          for(var i=0; i<praisedUsers.length; i++){
+            console.log(praisedUsers[i].user.id);
+            if(praisedUsers[i].user.id == req.user.id){
+              isCurrentUserPraised = i;
+              break;
+            }
+          }
+        }
+
+
+
+        if(isPraise){
+          if(!isCurrentUserPraised){
+            var user = {user:req.user};
+            praisedUsers.push(user);
+          }
+        }else{
+          if(isCurrentUserPraised){
+            product.praisedUsers = praisedUsers.splice(isCurrentUserPraised, 1);
+            console.log(product.praisedUsers);
+          }
+        }
+        //删除product中的链接
+        product.save(function(err){
+          if(!err) {
+            res.json({success:true});
+          }
+          else {
+            res.json({success:false, message:"内部错误!"});
+          }
+        });
+      }else{
+        res.json({success:false, message:"请先保存用户信息!"});
+      }
+    });
+
+  //res.json({productId:productId, success:true});
+};
