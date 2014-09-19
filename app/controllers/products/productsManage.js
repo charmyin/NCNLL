@@ -751,20 +751,19 @@ exports.productPraiseOrNot = function(req, res){
       if(product){
 
         var isCurrentUserPraised = false;
-
+        var currentUserIndexInPraisedUserArray;
         var praisedUsers = product.praisedUsers;
+
         if(praisedUsers){
           for(var i=0; i<praisedUsers.length; i++){
-            console.log(praisedUsers[i].user.id);
-            if(praisedUsers[i].user.id == req.user.id){
-              isCurrentUserPraised = i;
+            console.log(praisedUsers[i].user.toString());
+            if(praisedUsers[i].user.toString() == req.user.id){
+              isCurrentUserPraised = true;
+              currentUserIndexInPraisedUserArray = i;
               break;
             }
           }
         }
-
-
-
         if(isPraise){
           if(!isCurrentUserPraised){
             var user = {user:req.user};
@@ -772,7 +771,7 @@ exports.productPraiseOrNot = function(req, res){
           }
         }else{
           if(isCurrentUserPraised){
-            product.praisedUsers = praisedUsers.splice(isCurrentUserPraised, 1);
+            praisedUsers = praisedUsers.splice(currentUserIndexInPraisedUserArray, 1);
             console.log(product.praisedUsers);
           }
         }

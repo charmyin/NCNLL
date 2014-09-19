@@ -456,27 +456,71 @@
   });
 
 
-  modalComponentDirective.directive('cmngPraise',['$http', function($http) {
+  modalComponentDirective.directive('cmngPraise',['$http','$window', 'spinDelaySev', function($http,$window,spinDelaySev) {
     function link(scope, element, attrs) {
 
       scope.praisedUsersCount=scope.item.praisedUsers.length;
       //遍历user，如果本人存在，则：取消赞;否则：赞
       scope.praiseStr = "赞";
-
+      for(var i=0; i<scope.item.praisedUsers.length; i++){
+        if(scope.item.praisedUsers[i].user == scope.item.user._id)
+        scope.praiseStr = "取消赞";
+      }
       scope.praiseProduct = function(){
 
         if(scope.praiseStr == "赞"){
           //ajax请求，修改本人点赞状态
           $http.post('/product/praiseOrNot', {id:scope.item._id, isPraise:true}).success(function(msg){
+            //如果未登录,提示但不进行操作
+            if(!msg.success){
+              var overlay = spinDelaySev(msg.message);
+              $window.setTimeout(function() {
+                overlay.update({
+                  icon: "/vendors/iosOverlay/img/cross.png",
+                  text: msg.message
+                });
+              }, 5);
+              $window.setTimeout(function() {
+                overlay.hide();
+              }, 2e3);
+              return;
+            }
+            //if(msg)
             scope.praiseStr = "取消赞";
             scope.praisedUsersCount++;
           }).error(function(data, status, headers, config) {
-            //TODO 提示错误
+            //如果未登录,提示但不进行操作
+
+              var overlay = spinDelaySev("内部错误");
+              $window.setTimeout(function() {
+                overlay.update({
+                  icon: "/vendors/iosOverlay/img/cross.png",
+                  text: "内部错误"
+                });
+              }, 5);
+              $window.setTimeout(function() {
+                overlay.hide();
+              }, 2e3);
+
           });
 
         }else{
           //ajax请求，修改本人点赞状态
           $http.post('/product/praiseOrNot', {id:scope.item._id, isPraise:false}).success(function(msg){
+            //如果未登录,提示但不进行操作
+            if(!msg.success){
+              var overlay = spinDelaySev(msg.message);
+              $window.setTimeout(function() {
+                overlay.update({
+                  icon: "/vendors/iosOverlay/img/cross.png",
+                  text: msg.message
+                });
+              }, 5);
+              $window.setTimeout(function() {
+                overlay.hide();
+              }, 2e3);
+              return;
+            }
             scope.praisedUsersCount--;
             scope.praiseStr = "赞";
           });
