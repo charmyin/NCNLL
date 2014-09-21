@@ -2,7 +2,7 @@ var express = require('express');
 
 /* GET home page. */
 exports.index =function(req, res) {
-    res.render('index', { title: 'ncnll' });
+    res.render('index', { title: 'NCNEL' });
 };
 
 

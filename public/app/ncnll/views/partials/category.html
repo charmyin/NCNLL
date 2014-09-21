@@ -14,9 +14,10 @@
                     <div><a href="#" style="font-size:16px;font-weight: bold;">{{ item.productName }}</a><span class="label label-primary" style="float:right;">产地</span></div>
                     <p style="height:50px; text-indent: 25px;">{{ item.productDescription }}</p>
                     <div style="height:10px;">
-                      <span style="float:left;color:#428bca;">浏览次数:{{item.browseCount}}</span>
-                      <cmng-praise/>
+                      <span style="float:left;color:#428bca;">浏览次数:<strong>{{item.browseCount}}</strong></span>
                       <a href="#!/producer/products/{{item.user._id}}" style="float:right;">{{ item.user.username }} </a>
+                      <cmng-praise/>
+
 
                     </div>
                 </div>

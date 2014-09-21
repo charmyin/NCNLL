@@ -326,7 +326,7 @@
     //隐藏更多标志
     $scope.hideMoreButton = true;
     var producer_id = $routeParams._id;
-    console.log(producer_id);
+    //console.log(producer_id);
     $http.get(("/products/getProductsByProducer/"+producer_id)).success(function(data){
         //data.categories
         $scope.indexData=data.categories;

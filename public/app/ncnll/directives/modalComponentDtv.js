@@ -460,11 +460,16 @@
     function link(scope, element, attrs) {
 
       scope.praisedUsersCount=scope.item.praisedUsers.length;
+
       //遍历user，如果本人存在，则：取消赞;否则：赞
       scope.praiseStr = "赞";
       for(var i=0; i<scope.item.praisedUsers.length; i++){
-        if(scope.item.praisedUsers[i].user == scope.item.user._id)
-        scope.praiseStr = "取消赞";
+        console.log(scope.item.praisedUsers[i].user +"=="+ scope.item.user._id);
+        if(scope.item.praisedUsers[i].user == scope.item.user._id){
+          scope.praiseStr = "取消赞";
+          console.log(scope.item.praisedUsers[i].user +"=="+ scope.item.user._id);
+        }
+
       }
       scope.praiseProduct = function(){
 
@@ -537,7 +542,7 @@
     return {
       restrict: 'E',
       replace: true,
-      template:'<a href="javascript:void(0);" ng-click="praiseProduct();"style="float:left;min-width:50px;margin-left:10px;"><img src="/images/productManage/applause.jpg" style="height:20px;width:20px;float:left;" /> <span style="float:right;"> {{praiseStr}}({{praisedUsersCount}})</span></a>',
+      template:'<a href="javascript:void(0);" ng-click="praiseProduct();" class="praiseProductLink" style="float:left;min-width:50px;margin-left:10px;"><img src="/images/productManage/applause.jpg" style="height:20px;width:20px;float:left;" /> <span style="float:right;"> {{praiseStr}}(<strong>{{praisedUsersCount}}</strong>)</span></a>',
       link:link
     };
 

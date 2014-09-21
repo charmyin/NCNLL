@@ -52,3 +52,13 @@
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
+
+
+/**
+*** 点赞背景
+**/
+.praiseProductLink:hover{
+  background:#D5D6CF;
+  -moz-border-radius: 15px;
+  border-radius: 3px;
+}

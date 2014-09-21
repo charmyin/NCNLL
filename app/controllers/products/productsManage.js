@@ -399,7 +399,7 @@ exports.getProductsByProducer = function(req, res){
           res.json({"success":true, "brandInfo":brandInfo, "categories":undefined});
           return;
         }
-        var query = ProductInfo.find({"productCategory":categories[tmpCount]._id, "user":producerId});
+        var query = ProductInfo.find({"productCategory":categories[tmpCount]._id, "user":producerId}).populate('user');
         query.exec(function(err, dbCategoryProducts){
           if (err){
             res.json({"success":false, "error":err});
