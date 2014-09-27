@@ -33,7 +33,11 @@ var UserSchema = new Schema({
   salt: { type: String, default: '' },
   authToken: { type: String, default: '' },
   //用户头像地址
-  userPhotoID:{type:String}
+  userPhotoID:{type:String},
+  //收藏
+  storedProducts:[{
+    products:{type: Schema.ObjectId, ref:'ProductInfo'}
+  }]
 });
 
 /**
