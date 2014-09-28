@@ -57,6 +57,9 @@ module.exports = function (app, passport) {
     app.get('/user/photoid/:photoFileId', users.getUserPhotoByFileId);
     app.get('/user/photoid', users.getUserPhotoByFileId);
 
+    //收藏产品
+    app.post('/user/storeProduct', users.storeProduct);
+
     app.post("/saveBrandInfo", brands.saveBrandInfo);
     app.get('/brand/uploadBrandPhoto', brands.uploadBrandPhotoStatus);
     app.post('/brand/uploadBrandPhoto', brands.uploadBrandPhoto);

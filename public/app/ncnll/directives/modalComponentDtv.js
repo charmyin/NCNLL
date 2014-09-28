@@ -531,9 +531,6 @@
           });
 
         }
-
-
-        console.log(scope.item._id);
       };
 
 
@@ -548,7 +545,63 @@
 
   }]);
 
+  modalComponentDirective.directive('cmngStore',['$http','$window', 'spinDelaySev', function($http,$window,spinDelaySev) {
+    function link(scope, element, attrs) {
+      //初始化
+      scope.imagePathStore = "/images/productManage/store.png";
+      scope.storedStr = "收藏";
+      scope.storeProduct = function(){
+        $http.post('/user/storeProduct', scope.item).success(function(msg){
+            //如果未登录,提示但不进行操作
+            if(!msg.success){
+              var overlay = spinDelaySev(msg.message);
+              $window.setTimeout(function() {
+                overlay.update({
+                  icon: "/vendors/iosOverlay/img/cross.png",
+                  text: msg.message
+                });
+              }, 5);
+              $window.setTimeout(function() {
+                overlay.hide();
+              }, 2e3);
+              return;
+            }
+            //if(msg)
+            if(msg.stored){
+              scope.imagePathStore = "/images/productManage/stored.png";
+              scope.storedStr = "已收藏";
+            }
 
+            /*scope.praiseStr = "取消赞";
+            scope.praisedUsersCount++;*/
+          }).error(function(data, status, headers, config) {
+            //如果未登录,提示但不进行操作
+
+              var overlay = spinDelaySev("内部错误");
+              $window.setTimeout(function() {
+                overlay.update({
+                  icon: "/vendors/iosOverlay/img/cross.png",
+                  text: "内部错误"
+                });
+              }, 5);
+              $window.setTimeout(function() {
+                overlay.hide();
+              }, 2e3);
+
+          });
+        };
+
+
+    }
+
+    return {
+      restrict: 'E',
+      replace: true,
+      template:'<a href="javascript:void(0);" ng-click="storeProduct();" class="praiseProductLink" style="float:left;min-width:50px;margin-left:10px;"><img ng-src="{{imagePathStore}}" style="height:20px;width:20px;float:left;" /> <span style="float:right;">{{storedStr}}<span></a>',
+      link:link
+    };
+
+  }]);
 
 })();
 

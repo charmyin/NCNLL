@@ -15,11 +15,17 @@
                     <p style="height:50px; text-indent: 25px;">{{ item.productDescription }}</p>
                     <div style="height:10px;">
                       <span style="float:left;color:#428bca;">浏览次数:<strong>{{item.browseCount}}</strong></span>
+
+
+
                       <a href="#!/producer/products/{{item.user._id}}" style="float:right;">{{ item.user.username }} </a>
-                      <cmng-praise/>
+
+                      <span><cmng-praise/></span>
+                      <cmng-store/>
 
 
                     </div>
+
                 </div>
             </div>
           </div>

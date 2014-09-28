@@ -323,3 +323,48 @@ exports.uploadUserPhoto = function(req, res) {
 };
 
 
+//收藏, 如果有重复，则删除； 删除返回FALSE； 插入返回true。
+exports.storeProduct = function(req, res){
+  if(!req.user){
+    res.json({success:false, message:"请先登录!"});
+    return;
+  }
+
+  var findIndexByProductId = function(productId, array){
+    for(var i=0; i<array.length; i++){
+      if(array[i].products==productId){
+        return i;
+      }
+    }
+    return false;
+  };
+
+  User.findOne({ _id: req.user._id}, function (err, user) {
+      if(req.body._id){
+        var index = findIndexByProductId(req.body, req.user.storedProducts);
+        //已经存在，不需要变动
+        if(index){
+          user.storedProducts.splice(index, 1);
+        }else{ //不存在
+          user.storedProducts.push(req.body._id);
+        }
+
+        user.save(function(err){
+          if(!err) {
+            if(index){
+              res.json({success:true, stored:false});
+            }else{
+              res.json({success:true, stored:true});
+            }
+          }
+          else {
+
+            res.json({success:false, message:"内部错误!"});
+          }
+        });
+      }
+
+
+  });
+};
+
