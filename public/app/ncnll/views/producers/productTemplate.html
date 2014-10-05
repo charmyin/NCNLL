@@ -1,4 +1,3 @@
-<!-- //生产展示 -->
         <div class="alert alert-success" style="margin: 10px auto 3px auto; width:98%;">
           <span class="{{ category.self.iconName }}"></span>&nbsp;&nbsp;{{ category.self.categoryName }}
           <a ng-if="!hideMoreButton" style="float:right; position:relative;top:-5px;" href="#!/product/category/{{ category.self._id }}" class="btn btn-info btn-sm active" role="button">更多</a>
@@ -12,13 +11,13 @@
                 </div>
                 <div class="caption">
 
-
                     <div><a href="#" style="font-size:16px;font-weight: bold;">{{ item.productName }}</a><span class="label label-primary" style="float:right;">产地</span></div>
                     <p style="height:50px; text-indent: 25px;">{{ item.productDescription }}</p>
                     <div style="height:10px;">
                       <span style="float:left;color:#428bca;">浏览次数:<strong>{{item.browseCount}}</strong></span>
                       <!-- <a href="#!/producer/products/{{item.user._id}}" style="float:right;">{{ item.user.username }} </a> -->
-                      <cmng-praise/>
+                      <!-- <span><cmng-praise/></span> -->
+                      <cmng-store/>
                     </div>
 
                 </div>

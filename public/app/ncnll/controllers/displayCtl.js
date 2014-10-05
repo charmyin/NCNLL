@@ -30,12 +30,14 @@
     //是否登录成功
     $scope.loginSuccessfully=false;
     $http.get("/userSessionInfo").success(function(data){
+      $rootScope.userInfo=data;
       if(data.username){
         $scope.username=data.username;
         $scope.loginSuccessfully=true;
       }else{
         $scope.loginSuccessfully=false;
       }
+
     });
     //登录成功事件
     $rootScope.$on('loginSuccessEvent', function(event,user) {
@@ -54,6 +56,8 @@
             text: "退出成功!"
           });
         }, 500);
+        $window.location.reload();
+        $rootScope.userInfo = undefined;
         $scope.loginSuccessfully=false;
         $location.path("/");
         $("#loginModal input[type='password']").each(function(){
@@ -88,6 +92,7 @@
             $scope.loginSuccessfully = false;
             $("#loginErrorDiv").show("fast");
           } else {
+            $rootScope.userInfo = data.userInfo;
             $window.setTimeout(function() {
               overlay.update({
                 icon: "/vendors/iosOverlay/img/check.png",
@@ -99,6 +104,7 @@
             }, 2e3);
             $rootScope.$emit('loginSuccessEvent', data.user);
             $scope.loginSuccessfully = true;
+            $window.location.reload();
             $("#loginModal").modal("hide");
           }
 
@@ -556,6 +562,37 @@
       });
     };
 
+  }]);
+
+
+  /***********************获取收藏列表***********************/
+  displayController.controller('storagedProductCtrl', ['$scope','$http', '$compile', '$window', 'modalGenerateSev', '$routeParams', 'spinDelaySev', function ($scope, $http, $compile, $window, modalGenerateSev, $routeParams, spinDelaySev) {
+    //隐藏更多标志
+    $scope.hideMoreButton = true;
+    $http.get("/user/getStoredProducts").success(function(data){
+        $scope.data=data;
+        if(data.length == 0){
+          var overlay = spinDelaySev("载入中...");
+
+          $window.setTimeout(function() {
+            overlay.update({
+              icon: "/vendors/iosOverlay/img/cross.png",
+              text: "无内容！"
+            });
+          }, 100);
+
+          $window.setTimeout(function() {
+            overlay.hide();
+          }, 2e3);
+
+        }
+        console.log(data);
+    });
+
+    //渲染展示用modal，并显示
+    $scope.openModal = function(item){
+      modalGenerateSev($scope, item);
+    };
   }]);
 
 

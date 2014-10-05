@@ -37,6 +37,10 @@
         }).when('/product/category/:_id', {
             templateUrl: '/app/ncnll/views/singleCategoryBody.html',
             controller:'singleCategoryCtrl'
+        }).when('/products/storaged', {
+            //我的收藏
+            templateUrl: '/app/ncnll/views/users/storagedProducts.html',
+            controller:'storagedProductCtrl'
         }).otherwise({
             redirectTo: '/'
         });

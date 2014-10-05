@@ -7,6 +7,7 @@ process.env.TMPDIR = 'tmp'; // to avoid the EXDEV rename error, see http://stack
 
 var mongoose = require('mongoose')
   , User = mongoose.model('User')
+  , ProductInfo = mongoose.model('ProductInfo')
   , utils = require('../../lib/utils')
   , passport = require('passport');
 var Grid = require('gridfs-stream');
@@ -79,7 +80,8 @@ exports.signup = function (req, res) {
 exports.logout = function (req, res) {
   req.logout();
   res.json({
-      success : true
+      success : true,
+      userInfo : req.user
    });
 };
 
@@ -332,39 +334,48 @@ exports.storeProduct = function(req, res){
 
   var findIndexByProductId = function(productId, array){
     for(var i=0; i<array.length; i++){
-      if(array[i].products==productId){
+       console.log(array[i]._id);
+        console.log(productId+"---------------------");
+      if(array[i]._id==productId){
         return i;
       }
     }
-    return false;
+    return "false";
   };
 
   User.findOne({ _id: req.user._id}, function (err, user) {
       if(req.body._id){
-        var index = findIndexByProductId(req.body, req.user.storedProducts);
-        //已经存在，不需要变动
-        if(index){
-          user.storedProducts.splice(index, 1);
-        }else{ //不存在
+        var index = findIndexByProductId(req.body._id, user.storedProducts);
+        //不存在，新增
+        if(isNaN(index)){
           user.storedProducts.push(req.body._id);
+        }else{ //存在，删除
+          user.storedProducts.splice(index, 1);
         }
-
         user.save(function(err){
           if(!err) {
-            if(index){
-              res.json({success:true, stored:false});
+            if(isNaN(index)){
+              res.json({success:true, stored:true,userInfo:user});
             }else{
-              res.json({success:true, stored:true});
+              res.json({success:true, stored:false, userInfo:user});
             }
           }
           else {
-
             res.json({success:false, message:"内部错误!"});
           }
         });
       }
-
-
   });
 };
 
+/**
+** 获取用户存储的
+**/
+exports.getStoredProducts = function(req, res){
+  ProductInfo.find({
+    _id:{$in : req.user.storedProducts}
+  }, function(err, list){
+      console.log(list);
+      res.json(list);
+  });
+};

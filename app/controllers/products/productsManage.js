@@ -772,7 +772,6 @@ exports.productPraiseOrNot = function(req, res){
         }else{
           if(isCurrentUserPraised){
             praisedUsers = praisedUsers.splice(currentUserIndexInPraisedUserArray, 1);
-            console.log(product.praisedUsers);
           }
         }
         //删除product中的链接

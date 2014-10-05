@@ -59,6 +59,7 @@ module.exports = function (app, passport) {
 
     //收藏产品
     app.post('/user/storeProduct', users.storeProduct);
+    app.get('/user/getStoredProducts', users.getStoredProducts);
 
     app.post("/saveBrandInfo", brands.saveBrandInfo);
     app.get('/brand/uploadBrandPhoto', brands.uploadBrandPhotoStatus);

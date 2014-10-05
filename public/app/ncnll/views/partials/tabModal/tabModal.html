@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                <h3 class="modal-title" id="myModalLabel"><span class="label label-warning">{{ selectedItem.productName }}</span></h3>
+                <h3 class="modal-title" id="myModalLabel"><span class="label label-warning">{{ item.productName }}</span></h3>
             </div>
             <div id="modal-body" class="modal-body">
 
@@ -33,7 +33,17 @@
 
                 </div>
 
-                <div style="height:10px; width:100%;"><span>阅读次数：{{ selectedItem.browseCount }}</span><a  href="#" style="float:right;">&nbsp;Charmyin</a><a href="#" style="float:right;">周杰伦妹妹&nbsp;</a></div>
+                <div style="height:10px; width:100%;">
+                      <span style="float:left;color:#428bca;">浏览:<strong>{{item.browseCount}}</strong></span>
+
+                      <a href="#!/producer/products/{{item.user._id}}" style="float:right;">{{ item.user.username }} </a>
+
+                     <!--  <span><cmng-praise/></span> -->
+                      <cmng-store/>
+
+                </div>
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>

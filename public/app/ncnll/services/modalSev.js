@@ -22,7 +22,7 @@
             return $sce.trustAsResourceUrl(src);
           };
 
-          scope.selectedItem = item;
+          scope.item = item;
           scope.allTabs = [];
           scope.allTabs = scope.allTabs.concat(item.realtimePics);
           scope.allTabs=scope.allTabs.concat(item.timelapseVideos);
@@ -52,6 +52,7 @@
                   $('#cmng-tab-modal').remove();
                 }
               });
+              scope.$digest();
             },200);
           });
       };

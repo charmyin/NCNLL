@@ -456,23 +456,22 @@
   });
 
 
-  modalComponentDirective.directive('cmngPraise',['$http','$window', 'spinDelaySev', function($http,$window,spinDelaySev) {
+  modalComponentDirective.directive('cmngPraise',['$http','$window', '$rootScope', 'spinDelaySev', function($http, $window, $rootScope, spinDelaySev) {
     function link(scope, element, attrs) {
 
       scope.praisedUsersCount=scope.item.praisedUsers.length;
 
       //遍历user，如果本人存在，则：取消赞;否则：赞
       scope.praiseStr = "赞";
+      scope.applauseImg = "praise";
       for(var i=0; i<scope.item.praisedUsers.length; i++){
-        console.log(scope.item.praisedUsers[i].user +"=="+ scope.item.user._id);
-        if(scope.item.praisedUsers[i].user == scope.item.user._id){
-          scope.praiseStr = "取消赞";
-          console.log(scope.item.praisedUsers[i].user +"=="+ scope.item.user._id);
+        if(scope.item.praisedUsers[i].user == $rootScope.userInfo._id){
+          scope.praiseStr = "消赞";
+          scope.applauseImg = "praised";
         }
-
       }
-      scope.praiseProduct = function(){
 
+      scope.praiseProduct = function(){
         if(scope.praiseStr == "赞"){
           //ajax请求，修改本人点赞状态
           $http.post('/product/praiseOrNot', {id:scope.item._id, isPraise:true}).success(function(msg){
@@ -491,11 +490,11 @@
               return;
             }
             //if(msg)
-            scope.praiseStr = "取消赞";
+            scope.praiseStr = "消赞";
+            scope.applauseImg = "praised";
             scope.praisedUsersCount++;
           }).error(function(data, status, headers, config) {
             //如果未登录,提示但不进行操作
-
               var overlay = spinDelaySev("内部错误");
               $window.setTimeout(function() {
                 overlay.update({
@@ -528,6 +527,7 @@
             }
             scope.praisedUsersCount--;
             scope.praiseStr = "赞";
+            scope.applauseImg = "praise";
           });
 
         }
@@ -539,17 +539,42 @@
     return {
       restrict: 'E',
       replace: true,
-      template:'<a href="javascript:void(0);" ng-click="praiseProduct();" class="praiseProductLink" style="float:left;min-width:50px;margin-left:10px;"><img src="/images/productManage/applause.jpg" style="height:20px;width:20px;float:left;" /> <span style="float:right;"> {{praiseStr}}(<strong>{{praisedUsersCount}}</strong>)</span></a>',
+      template:'<a href="javascript:void(0);"  ng-click="praiseProduct();" class="praiseProductLink" style="float:left;min-width:50px;margin-left:10px;"><img ng-src="/images/productManage/{{applauseImg}}.png" style="height:20px;width:20px;float:left;" /> <span style="float:right;"> {{praiseStr}}(<strong>{{praisedUsersCount}}</strong>)</span></a>',
       link:link
     };
 
   }]);
 
-  modalComponentDirective.directive('cmngStore',['$http','$window', 'spinDelaySev', function($http,$window,spinDelaySev) {
+  modalComponentDirective.directive('cmngStore',['$http','$window', '$rootScope','spinDelaySev', function($http,$window,$rootScope,spinDelaySev) {
     function link(scope, element, attrs) {
       //初始化
       scope.imagePathStore = "/images/productManage/store.png";
       scope.storedStr = "收藏";
+      scope.productStored = false;
+
+      if($rootScope.userInfo.storedProducts){
+          for(var i=0; i<$rootScope.userInfo.storedProducts.length; i++){
+            if($rootScope.userInfo.storedProducts[i]._id == scope.item._id){
+               /* scope.imagePathStore = "/images/productManage/stored.png";
+                scope.storedStr = "已收藏";*/
+                scope.productStored = true;
+            }
+          }
+        }
+
+      $rootScope.$on('reloadStoredStatusEvent', function() {
+                scope.productStored = false;
+               for(var i=0; i<$rootScope.userInfo.storedProducts.length; i++){
+                  if($rootScope.userInfo.storedProducts[i]._id == scope.item._id){
+                     /* scope.imagePathStore = "/images/productManage/stored.png";
+                      scope.storedStr = "已收藏";*/
+                      scope.productStored = true;
+                  }
+                }
+
+
+      });
+
       scope.storeProduct = function(){
         $http.post('/user/storeProduct', scope.item).success(function(msg){
             //如果未登录,提示但不进行操作
@@ -566,17 +591,24 @@
               }, 2e3);
               return;
             }
+            $rootScope.userInfo = msg.userInfo;
             //if(msg)
             if(msg.stored){
-              scope.imagePathStore = "/images/productManage/stored.png";
-              scope.storedStr = "已收藏";
+              /*scope.imagePathStore = "/images/productManage/stored.png";
+              scope.storedStr = "已收藏";*/
+              scope.productStored = true;
+            }else{
+       /*       scope.imagePathStore = "/images/productManage/store.png";
+                scope.storedStr = "收藏";*/
+              scope.productStored = false;
             }
+
+            $rootScope.$emit('reloadStoredStatusEvent');
 
             /*scope.praiseStr = "取消赞";
             scope.praisedUsersCount++;*/
           }).error(function(data, status, headers, config) {
             //如果未登录,提示但不进行操作
-
               var overlay = spinDelaySev("内部错误");
               $window.setTimeout(function() {
                 overlay.update({
@@ -587,17 +619,14 @@
               $window.setTimeout(function() {
                 overlay.hide();
               }, 2e3);
-
           });
         };
-
-
     }
 
     return {
       restrict: 'E',
       replace: true,
-      template:'<a href="javascript:void(0);" ng-click="storeProduct();" class="praiseProductLink" style="float:left;min-width:50px;margin-left:10px;"><img ng-src="{{imagePathStore}}" style="height:20px;width:20px;float:left;" /> <span style="float:right;">{{storedStr}}<span></a>',
+      template:'<a href="javascript:void(0);" ng-click="storeProduct();" class="praiseProductLink" style="float:left;min-width:50px;margin-left:10px;"><img ng-show="productStored" src="/images/productManage/stored.png" style="height:20px;width:20px;float:left;" /> <img ng-hide="productStored" src="/images/productManage/store.png" style="height:20px;width:20px;float:left;" /><span ng-show="productStored" style="float:right;">已收藏</span> <span ng-hide="productStored" style="float:right;">收藏</span></a>',
       link:link
     };
 

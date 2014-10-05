@@ -99,6 +99,13 @@
                     </ul>
                 </li>
                 <li class="dropdown" ng-show="loginSuccessfully">
+                    <a style="cursor:pointer" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-link"></span>我的菜单 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#!/products/storaged">我的收藏</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown" ng-show="loginSuccessfully">
                     <a style="cursor:pointer" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-link"></span>品牌产品管理 <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#!/producer/brandManage/userid">品牌信息管理</a></li>
@@ -119,8 +126,6 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="loginModal" ng-controller="loginCtrl" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
