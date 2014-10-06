@@ -1,11 +1,15 @@
 (function(){
-	var modalComponentDirective=angular.module("modalComponentDirective", []);
+	var modalComponentDirective=angular.module("modalComponentDirective", ["vr.directives.slider"]);
 
 	//按天计算的历史图片slider
 	modalComponentDirective.directive('cmngHistoryImage', function () {
 		function link(scope, element, attrs) {
 			  scope.initSrc = "images/index/3.jpg";
-			  //初始图片
+          scope.item = {
+            name: 'Potato',
+            cost: 350
+          };
+			 /* //初始图片
         //时间轴选中日期提示
         var customToolTip = $.Link({
           target: '-tooltip-<div class="noUiSliderTooltip"></div>',
@@ -43,7 +47,7 @@
           var nameValue = Math.floor(slider.val());
          	//scope.initSrc = "/images/index/"+nameValue+".jpg";
          	$(element).find("img").attr("src","/images/index/"+nameValue+".jpg");
-        });
+        });*/
 			//slider.attr("src","images/producers/dp2.jpg");
     }
 
@@ -548,32 +552,31 @@
   modalComponentDirective.directive('cmngStore',['$http','$window', '$rootScope','spinDelaySev', function($http,$window,$rootScope,spinDelaySev) {
     function link(scope, element, attrs) {
       //初始化
-      scope.imagePathStore = "/images/productManage/store.png";
+/*      scope.imagePathStore = "/images/productManage/store.png";
       scope.storedStr = "收藏";
       scope.productStored = false;
 
       if($rootScope.userInfo.storedProducts){
           for(var i=0; i<$rootScope.userInfo.storedProducts.length; i++){
             if($rootScope.userInfo.storedProducts[i]._id == scope.item._id){
-               /* scope.imagePathStore = "/images/productManage/stored.png";
-                scope.storedStr = "已收藏";*/
                 scope.productStored = true;
             }
           }
         }
-
+*/
       $rootScope.$on('reloadStoredStatusEvent', function() {
-                scope.productStored = false;
-               for(var i=0; i<$rootScope.userInfo.storedProducts.length; i++){
-                  if($rootScope.userInfo.storedProducts[i]._id == scope.item._id){
-                     /* scope.imagePathStore = "/images/productManage/stored.png";
-                      scope.storedStr = "已收藏";*/
-                      scope.productStored = true;
-                  }
+         scope.productStored = false;
+          if($rootScope.userInfo.storedProducts){
+             for(var i=0; i<$rootScope.userInfo.storedProducts.length; i++){
+                if($rootScope.userInfo.storedProducts[i]._id == scope.item._id){
+                    scope.productStored = true;
                 }
-
-
+             }
+           }
       });
+
+      //初始化状态触发事件
+      $rootScope.$emit('reloadStoredStatusEvent');
 
       scope.storeProduct = function(){
         $http.post('/user/storeProduct', scope.item).success(function(msg){

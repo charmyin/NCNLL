@@ -4,10 +4,8 @@
       return function(scope, item){
           //渲染展示用modal，并显示
           //根据data生成modal
-         //console.log(item)
 
          //记录产品阅读次数
-
          $http.post('/productInfo/increaseBrowseCount', {"id":item._id}).success(function(data){
             if(data.success){
               if(item.browseCount){
