@@ -1,5 +1,5 @@
 (function(){
-	var modalComponentDirective=angular.module("modalComponentDirective", ["vr.directives.slider"]);
+	var modalComponentDirective=angular.module("modalComponentDirective", ["ui-rangeSlider"]);
 
 	//按天计算的历史图片slider
 	modalComponentDirective.directive('cmngHistoryImage', function () {
@@ -8,6 +8,12 @@
           scope.item = {
             name: 'Potato',
             cost: 350
+          };
+          scope.demo6 = {
+            valueA: 5000,
+            valueB: 3000,
+            maxValue:1000,
+            minValue:0
           };
 			 /* //初始图片
         //时间轴选中日期提示
