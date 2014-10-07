@@ -4,16 +4,16 @@
 	//按天计算的历史图片slider
 	modalComponentDirective.directive('cmngHistoryImage', function () {
 		function link(scope, element, attrs) {
-			  scope.initSrc = "images/index/3.jpg";
+			    scope.initSrc = "008245.jpg";
           scope.item = {
             name: 'Potato',
             cost: 350
           };
-          scope.demo6 = {
+          scope.sliderSetting = {
             valueA: 5000,
             valueB: 3000,
-            maxValue:1000,
-            minValue:0
+            maxValue:100,
+            minValue:10
           };
 			 /* //初始图片
         //时间轴选中日期提示
