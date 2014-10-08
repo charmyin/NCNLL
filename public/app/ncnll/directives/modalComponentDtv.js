@@ -12,8 +12,23 @@
           scope.sliderSetting = {
             valueA: 5000,
             valueB: 3000,
-            maxValue:100,
-            minValue:10
+            maxValue:7000,
+            minValue:1000
+          };
+          scope.jumpStep = 1;
+          scope.gogogo = function(){
+            var tmpCount = scope.sliderSetting.valueA+parseInt(scope.jumpStep);
+            console.log(tmpCount);
+            if(tmpCount<scope.sliderSetting.maxValue){
+              scope.sliderSetting.valueA=tmpCount;
+               console.log(scope.sliderSetting.valueA);
+            }
+          };
+          scope.backbackback = function(){
+            var tmpCount = scope.sliderSetting.valueA-parseInt(scope.jumpStep);
+            if(tmpCount>scope.sliderSetting.minValue){
+              scope.sliderSetting.valueA=tmpCount;
+            }
           };
 			 /* //初始图片
         //时间轴选中日期提示
