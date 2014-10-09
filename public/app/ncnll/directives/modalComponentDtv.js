@@ -4,30 +4,33 @@
 	//按天计算的历史图片slider
 	modalComponentDirective.directive('cmngHistoryImage', function () {
 		function link(scope, element, attrs) {
-			    scope.initSrc = "008245.jpg";
-          scope.item = {
-            name: 'Potato',
-            cost: 350
-          };
+			    scope.imgName = "1825";
+
           scope.sliderSetting = {
             valueA: 5000,
             valueB: 3000,
             maxValue:7000,
             minValue:1000
           };
+
           scope.jumpStep = 1;
+
           scope.gogogo = function(){
             var tmpCount = scope.sliderSetting.valueA+parseInt(scope.jumpStep);
-            console.log(tmpCount);
             if(tmpCount<scope.sliderSetting.maxValue){
               scope.sliderSetting.valueA=tmpCount;
-               console.log(scope.sliderSetting.valueA);
+              scope.imgName = tmpCount;
             }
+          };
+          scope.changePic = function(){
+            scope.imgName =scope.sliderSetting.valueA;
+            scope.$apply();
           };
           scope.backbackback = function(){
             var tmpCount = scope.sliderSetting.valueA-parseInt(scope.jumpStep);
             if(tmpCount>scope.sliderSetting.minValue){
               scope.sliderSetting.valueA=tmpCount;
+              scope.imgName = tmpCount;
             }
           };
 			 /* //初始图片

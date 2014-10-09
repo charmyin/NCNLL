@@ -108,7 +108,6 @@
                 disabled: '=?',
                 min: '=',
                 max: '=',
-                onKeyUpHandler:'=',//Added by charmyin
                 modelMin: '=?',
                 modelMax: '=?',
                 onHandleDown: '&', // calls optional function when handle is grabbed
@@ -483,12 +482,6 @@
                                 previousClick = currentClick;
 
                             }).bind(offEvent, function () {
-
-                                //Added by charmyin
-                                if (angular.isFunction(scope.onKeyUpHandler)) {
-                                    console.log(scope.onKeyUpHandler);
-                                    scope.onKeyUpHandler();
-                                }
 
                                 if (angular.isFunction(scope.onHandleUp)) {
                                     scope.onHandleUp();
