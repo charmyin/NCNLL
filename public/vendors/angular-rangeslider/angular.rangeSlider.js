@@ -114,7 +114,8 @@
                 onHandleDown: '&', // calls optional function when handle is grabbed
                 onHandleUp: '&', // calls optional function when handle is released
                 orientation: '@', // options: horizontal | vertical | vertical left | vertical right
-                step: '@',
+                //step: '@',
+                step: '=',
                 decimalPlaces: '@',
                 filter: '@',
                 filterOptions: '@',

@@ -229,7 +229,6 @@
   displayController.controller('userPasswordChangeCtrl', ['$scope', '$http', '$compile', '$window', 'spinDelaySev', function($scope, $http, $compile, $window, spinDelaySev){
     $scope.user = {};
 
-
     $scope.submitForm = function(){
       var overlay = spinDelaySev("保存中...");
       $http({

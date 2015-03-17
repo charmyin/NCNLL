@@ -4,75 +4,37 @@
 	//按天计算的历史图片slider
 	modalComponentDirective.directive('cmngHistoryImage', function () {
 		function link(scope, element, attrs) {
-			    scope.imgName = "1825";
+	    scope.imgName = "1825";
 
-          scope.sliderSetting = {
-            valueA: 5000,
-            valueB: 3000,
-            maxValue:7000,
-            minValue:1000
-          };
+      scope.sliderSetting = {
+        valueA: 5000,
+        valueB: 3000,
+        maxValue:7000,
+        minValue:1000,
+        step:1
+      };
+      //上传时候，记录文件名称，即编号+日期+时分秒
 
-          scope.jumpStep = 1;
+      scope.jumpStep = 1;
 
-          scope.gogogo = function(){
-            var tmpCount = scope.sliderSetting.valueA+parseInt(scope.jumpStep);
-            if(tmpCount<scope.sliderSetting.maxValue){
-              scope.sliderSetting.valueA=tmpCount;
-              scope.imgName = tmpCount;
-            }
-          };
-          scope.changePic = function(){
-            scope.imgName =scope.sliderSetting.valueA;
-            scope.$apply();
-          };
-          scope.backbackback = function(){
-            var tmpCount = scope.sliderSetting.valueA-parseInt(scope.jumpStep);
-            if(tmpCount>scope.sliderSetting.minValue){
-              scope.sliderSetting.valueA=tmpCount;
-              scope.imgName = tmpCount;
-            }
-          };
-			 /* //初始图片
-        //时间轴选中日期提示
-        var customToolTip = $.Link({
-          target: '-tooltip-<div class="noUiSliderTooltip"></div>',
-          method: function ( value ) {
-            // The tooltip HTML is 'this', so additional
-            // markup can be inserted here.
-            $(this).html(
-              '<span>2014-12-' + Math.floor(value) + '&nbsp;12:23:33</span>'
-            );
-          }
-        });
-        //TODO 通过第一次录入照片的时间和当前时间来获取差值，作为时间轴的范围
-
-        //生成时间轴
-        var slider = $(element).find("div");
-        slider.noUiSlider({
-          start: 1,
-          behaviour: 'tap-drag',
-          connect: "lower",
-          step: 1,
-          range: {
-            'min': 1,
-            'max': 3
-          },
-          serialization: {
-            lower: [ customToolTip ]
-          },
-          format: {
-            encoder: function( value ){
-              return Math.floor(value);
-            }
-          }
-        }).change(function(){
-        //  var now = new Date();
-          var nameValue = Math.floor(slider.val());
-         	//scope.initSrc = "/images/index/"+nameValue+".jpg";
-         	$(element).find("img").attr("src","/images/index/"+nameValue+".jpg");
-        });*/
-			//slider.attr("src","images/producers/dp2.jpg");
+      scope.gogogo = function(){
+        var tmpCount = scope.sliderSetting.valueA+parseInt(scope.jumpStep);
+        if(tmpCount<scope.sliderSetting.maxValue){
+          scope.sliderSetting.valueA=tmpCount;
+          scope.imgName = tmpCount;
+        }
+      };
+      scope.changePic = function(){
+        scope.imgName =scope.sliderSetting.valueA;
+        scope.$apply();
+      };
+      scope.backbackback = function(){
+        var tmpCount = scope.sliderSetting.valueA-parseInt(scope.jumpStep);
+        if(tmpCount>scope.sliderSetting.minValue){
+          scope.sliderSetting.valueA=tmpCount;
+          scope.imgName = tmpCount;
+        }
+      };
     }
 
 		return {
@@ -219,6 +181,7 @@
         $scope.tabIndex = $($element).attr("tabindex");
 
         $scope.submitForm = function(){
+        //  debugger
           $scope.isolatePicScrollModel._id = $scope.$parent.basicInfo._id;
           $scope.isolatePicScrollModel.orderIndex = $($element).attr("tabindex");
           $scope.isolatePicScrollModel.tabType = 0;
@@ -228,7 +191,6 @@
             method:"POST",
             headers:{'Content-Type':'application/json; charset=UTF-8'}
           }).success(function(data){
-            console.log(data);
           }).error(function(){
 
           });
