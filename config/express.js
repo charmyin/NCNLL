@@ -10,6 +10,10 @@ var express = require('express')
   , helpers = require('view-helpers')
   , pkg = require('../package.json')
 
+var Promise = require("bluebird");
+Error.stackTraceLimit = 25;
+Promise.longStackTraces();
+
 var env = process.env.NODE_ENV || 'development'
 
 module.exports = function (app, config, passport) {
@@ -40,6 +44,7 @@ module.exports = function (app, config, passport) {
     }
   } else {
     log = 'dev'
+
   }
   // Don't log during tests
   if (env !== 'test') app.use(express.logger(log))

@@ -12,6 +12,10 @@
 var express = require('express')
   , fs = require('fs')
   , passport = require('passport');
+  
+var Promise = require("bluebird");
+Error.stackTraceLimit = 25;
+Promise.longStackTraces();
 
 /**
  * Main application entry file.

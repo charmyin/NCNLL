@@ -1,6 +1,12 @@
 (function(){
 	var ncnllApp=angular.module("ncnll", ["ngRoute", "componentDirective", "modalComponentDirective", 'displayCtl', 'flow']);
-	ncnllApp.config(["$routeProvider", "$locationProvider",
+    //全局的配置文件放这里！
+    ncnllApp.run(function($rootScope) {
+        $rootScope.globalConfig={
+          tabImagePath : "http://localhost:8091/images/"
+        };
+    })
+	ncnllApp.config(["$routeProvider", "$locationProvider", 
     function($routeProvider, $locationProvider) {
 		    $routeProvider.when('/', {
             templateUrl: '/app/ncnll/views/categoriesBody.html',
@@ -44,8 +50,10 @@
         }).otherwise({
             redirectTo: '/'
         });
-       $locationProvider.html5Mode(false);
-       $locationProvider.hashPrefix('!');
+        $locationProvider.html5Mode(false);
+        $locationProvider.hashPrefix('!');
+
+        
 	}]);
 
 })();

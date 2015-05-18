@@ -1,8 +1,19 @@
+var Promise = require("bluebird");
 var mongoose = require("mongoose");
+Promise.promisifyAll(mongoose);
+
 var ProductInfo =  mongoose.model("ProductInfo");
+Promise.promisifyAll(ProductInfo);
+Promise.promisifyAll(ProductInfo.prototype);
 var User =  mongoose.model("User");
+Promise.promisifyAll(User);
+Promise.promisifyAll(User.prototype);
 var Category =  mongoose.model("Category");
+Promise.promisifyAll(Category);
+Promise.promisifyAll(Category.prototype);
 var Brand = mongoose.model('Brand');
+Promise.promisifyAll(Brand);
+Promise.promisifyAll(Brand.prototype);
 
 var Grid = require('gridfs-stream');
 var fs = require('fs');
@@ -12,6 +23,9 @@ var Query = mongoose.Query;
 Grid.mongo = mongoose.mongo;
 var gfs = Grid(mongoose.connection.db);
 var flow = require('../../../lib/flow-node.js')('tmp');
+
+
+
 
 exports.saveProductBasicInfo = function(req, res){
   var productInfo = new ProductInfo(req.body);
@@ -121,10 +135,6 @@ exports.removePicsScroll = function(req, res){
             dbProductInfo.scrollPics.splice(i, 1);
           }
         }
-
-        console.log(dbProductInfo.scrollPics);
-
-
 
         dbProductInfo.save(function(err){
           if(!err){
@@ -341,27 +351,20 @@ exports.getLimitedElementByCategory = function(req, res){
 //按分类获取产品
 exports.getProductByCategory = function(req, res){
   var catId = req.param("_id");
-
-  Category.findOne({"_id":catId}, function(err, category){
-    if (err){
-      res.json({"success":false, "error":err});
-      return;
-    }else{
+  var categoryItem;
+  Category.findOneAsync({"_id":catId}).then(function(category){
+      categoryItem = category;
       var query = ProductInfo.find({"productCategory":catId}).populate({
         path:"user",
         select:"username"
       });
-
-      query.exec(function(err, productInfos){
-        if (err){
-          res.json({"success":false, "error":err});
-          return;
-        }else{
-          var tmpResult = {"self":category, "items":productInfos};
-          res.json({"success":true, "productInfos":[tmpResult]});
-        }
-      });
-    }
+      return query.execAsync();
+  }).then(function(productInfos){
+      var tmpResult = {"self":categoryItem, "items":productInfos};
+      res.json({"success":true, "productInfos":[tmpResult]});
+  }).catch(function(err){
+    res.json({"success":false, "errdddor":err});
+    return;
   });
 };
 

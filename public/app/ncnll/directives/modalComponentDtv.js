@@ -60,11 +60,12 @@
 
 
 //http://onehungrymind.com/demos/slider/#
-	modalComponentDirective.directive('cmngImageShow',['$animate',function($animate) {
+	modalComponentDirective.directive('cmngImageShow',['$animate','$rootScope',function($animate, config, $rootScope) {
+    this.rootScope = $rootScope;
 		function link(scope, element, attrs) {
         scope.slides = [];
         for(var i=0; i<scope.item.picIds.length; i++){
-          scope.slides.push({image: 'prodouct/getProductPhotoInTabByFileId/'+scope.item.picIds[i], description: '图片'});
+          scope.slides.push({image: scope.$root.globalConfig.tabImagePath+scope.item.picIds[i], description: '图片'});
         }
        /* scope.slides = [
             {image: '/images/producers/1.jpg', description: 'Image 00'},
