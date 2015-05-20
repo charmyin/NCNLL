@@ -335,8 +335,8 @@
     $http.get(("/products/getProductsByProducer/"+producer_id)).success(function(data){
         //data.categories
         $scope.indexData=data.categories;
-        data.brandInfo.user.imgPath = "/user/photoid/"+data.brandInfo.user.userPhotoID;
-        data.brandInfo.brandInfoPhotoPath = "/brand/photoid/"+data.brandInfo.brandPhotoIds[0];
+        data.brandInfo.user.imgPath = $scope.$root.globalConfig.tabImagePath+data.brandInfo.user.userPhotoID;
+        data.brandInfo.brandInfoPhotoPath = $scope.$root.globalConfig.tabImagePath+data.brandInfo.brandPhotoIds[0];
         $scope.brandInfo = data.brandInfo;
 
     });

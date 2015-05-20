@@ -8,7 +8,7 @@
             <div class="thumbnail" >
               <div style="height:260px;">
                 <a ng-href="#!/producer/products/{{item._id}}">
-                  <img style="cursor:pointer;width:100%;height:100%;" ng-src="/user/photoid/{{item.userPhotoID}}" alt="">
+                  <img style="cursor:pointer;width:100%;height:100%;" ng-src="{{globalConfig.tabImagePath}}{{item.userPhotoID}}" alt="">
                 </a>
               </div>
                 <div class="caption">
