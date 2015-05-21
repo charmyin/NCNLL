@@ -1,9 +1,9 @@
 (function(){
-	var ncnllApp=angular.module("ncnll", ["ngRoute", "componentDirective", "modalComponentDirective", 'displayCtl', 'flow']);
+	var ncnllApp=angular.module("ncnll", ["ngRoute", "componentDirective", "modalComponentDirective", 'displayCtl']);
     //全局的配置文件放这里！
     ncnllApp.run(function($rootScope) {
         $rootScope.globalConfig={
-          tabImagePath : "http://192.168.1.102:8091/images/"
+          tabImagePath : "http://192.168.1.100:8091/images/"
         };
     })
 	ncnllApp.config(["$routeProvider", "$locationProvider", 
@@ -23,23 +23,12 @@
         }).when('/producerCategory/:categoryId', {
             templateUrl: '/app/ncnll/views/producers/producerCategoryBody.html',
             controller: 'producerCategoryCtrl'
-        }).when('/producerManage/:userId', {
-            templateUrl: '/app/ncnll/views/productManage/productManageIndex.html',
-            controller: 'productManageCtrl'
-        }).when('/producer/brandManage/:userid', {
-            templateUrl: '/app/ncnll/views/producerInfo/brandInfoManage.html'
-        }).when('/producer/infoManage/:userId', {
-            templateUrl: '/app/ncnll/views/producerInfo/infoManage.html',
-            controller: 'userInfoUpdateCtrl'
         }).when('/producer/changePassword/:userid', {
             templateUrl: '/app/ncnll/views/producerInfo/changePassword.html'
         }).when('/producerRegist', {
             templateUrl: '/app/ncnll/views/producerInfo/userRegist.html'
         }).when('/getLostPassword', {
             templateUrl: '/app/ncnll/views/producerInfo/getLostPassword.html'
-        }).when('/product/categoryManage', {
-            templateUrl: '/app/ncnll/views/productManage/productCategoryManage.html',
-            controller:'productCategoryManage'
         }).when('/product/category/:_id', {
             templateUrl: '/app/ncnll/views/singleCategoryBody.html',
             controller:'singleCategoryCtrl'
@@ -52,8 +41,6 @@
         });
         $locationProvider.html5Mode(false);
         $locationProvider.hashPrefix('!');
-
-        
 	}]);
 
 })();
