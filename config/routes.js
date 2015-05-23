@@ -38,6 +38,8 @@ var commentAuth = [auth.requiresLogin, auth.comment.hasAuthorization];
 module.exports = function (app, passport) {
 
     app.get("/",indexRoute.index );
+    app.get("/novideo",indexRoute.novideo );
+    
     app.get("/indexData",indexRoute.indexData);
     app.get("/userProducts",indexRoute.userProducts);
     app.post("/userRegister", users.create);

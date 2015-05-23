@@ -10,7 +10,7 @@
                 <div class="tabbable tabs-below">
                   <ul class="nav nav-tabs">
                     <li ng-repeat="item in allTabs" ng-class="{active: selectedTab == ($index+1)}" >
-                      <a style="cursor:pointer;" ng-click="$parent.selectedTab = ($index+1)">{{item.title}}</a>
+                      <a style="cursor:pointer;" ng-click="$parent.selectedTab = ($index+1); doSomething($index+1);">{{item.title}}</a>
                     </li>
 
                     <!-- <li ng-class="{active: selectedTab == 4}">
@@ -19,12 +19,11 @@
                   </ul>
 
 
-                  <div class="tab-content" ng-repeat="item in allTabs" ng-show="selectedTab == ($index+1)" ng-switch on="item.tabType">
+                  <div class="tab-content modalTabContent" ng-repeat="item in allTabs" ng-show="selectedTab == ($index+1)" ng-switch on="item.tabType">
                     <div class="animate-switch" ng-switch-when="0" cmng-image-show></div>
                     <div class="animate-switch" ng-switch-when="1" cmng-video-show></div>
                     <div class="animate-switch" ng-switch-when="2" cmng-history-image></div>
                   </div>
-
 
                   <!-- <div class="tab-content" cmng-video-show ng-show="selectedTab == 1"></div>
                   <div class="tab-content" cmng-history-image ng-show="selectedTab == 2"></div>

@@ -5,7 +5,9 @@ exports.index =function(req, res) {
     res.render('index', { title: 'NCNEL' });
 };
 
-
+exports.novideo = function(req, res){
+    res.json({success:true});
+};
 /* GET home page. */
 exports.indexData = function(req, res) {
     var data = [

@@ -20,10 +20,9 @@
             return $sce.trustAsResourceUrl(src);
           };
 
-          
-
           scope.item = item;
           scope.allTabs = [];
+          //不改变原来的数组，返回一个副本
           scope.allTabs = scope.allTabs.concat(item.realtimePics);
           scope.allTabs=scope.allTabs.concat(item.timelapseVideos);
           scope.allTabs=scope.allTabs.concat(item.scrollPics);
@@ -35,6 +34,12 @@
               return ((x < y) ? -1 : ((x > y) ? 1 : 0));
           });
 
+          //tab单击时候加载图片
+          scope.doSomething = function(index){
+            $($(".modalTabContent")[index-1]).find("img").each(function(){
+              $(this).attr("src",$(this).attr("ng-srcd"));
+            });
+          }
 
           //console.log(scope.allTabs)
           var html = '<div id="cmng-tab-modal" cmng-tab-modal></div>';
@@ -50,17 +55,24 @@
               $("body").append(clonedElement);
               $('#myModal').modal('show');
 
-              //清除modal中的所有内容
+              //关闭modal时，清除modal中的所有内容
               $('#myModal').on('hidden.bs.modal', function (e) {
+                //Modal关闭后，停止Modal中视频加载
+                $(".videoInModalTab source").attr("src", "novideo");
+                $(".videoInModalTab").load();
+
+                if($('#cmng-tab-modal')){
+                  $('#cmng-tab-modal').remove();
+                }
+
                 $(linkFnelement).remove();
                 $(clonedElement).remove();
                 delete linkFnelement;
                 delete clonedElement;
-                if($('#cmng-tab-modal')){
-                  $('#cmng-tab-modal').remove();
-                }
               });
+
               scope.$digest();
+
             },200);
           });
       };
