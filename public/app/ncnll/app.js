@@ -3,7 +3,7 @@
     //全局的配置文件放这里！
     ncnllApp.run(function($rootScope) {
         $rootScope.globalConfig={
-          tabImagePath : "http://192.168.1.100:8091/images/"
+          tabImagePath : "http://localhost:8091/images/"
         };
     })
 	ncnllApp.config(["$routeProvider", "$locationProvider", 

@@ -8,7 +8,6 @@ var async = require('async');
 /**
  * Controllers
  */
-
 var users = require('../app/controllers/users');
 /*  , articles = require('../app/controllers/articles')
   , auth = require('./middlewares/authorization')*/
@@ -16,6 +15,9 @@ var indexRoute = require("../app/controllers/index");
 var auth = require('./middlewares/authorization');
 var brands = require("../app/controllers/products/brands");
 var productsManage = require("../app/controllers/products/productsManage");
+var productsItemCtrl = require("../app/controllers/products/productItem");
+var imageInfoCtrl = require("../app/controllers/products/imageInfo");
+
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -94,6 +96,7 @@ module.exports = function (app, passport) {
     app.get("/products/getProductsByProducer/:_id",productsManage.getProductsByProducer);
     app.post("/products/deleteById",productsManage.deleteById);
 
+    app.get("/product/id/:_id",productsManage.getProductById);
     app.post("/product/category/save", productsManage.saveProductCategories);
     app.get("/product/allCategories", productsManage.allCategories);
     app.get("/product/getLimitedElementByCategory", productsManage.getLimitedElementByCategory);
@@ -114,6 +117,12 @@ module.exports = function (app, passport) {
     app.get('/download/:identifier', fileUploader.downloadFile);
     app.get('/upload', fileUploader.uploadGetStatus);
 
+    //产品个体管理
+    app.get('/productItem/id/:_id',productsItemCtrl.findProductItemById);
+
+    //产品图片管理
+    app.post('/imageInfo/searchList',imageInfoCtrl.searchList);
+    
 
 /*    app.get("/userSession", user.userSession);*/
 

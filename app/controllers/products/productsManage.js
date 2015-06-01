@@ -440,6 +440,16 @@ exports.uploadProductPhotoStatus = function(req, res) {
 };
 
 
+exports.getProductById = function(req, res){
+  ProductInfo.findOne({"_id":req.param("_id")}, function(err, result){
+    if (err){
+      res.json({"success":false, "error":err});
+    }else{
+      res.json({"success":true, "product":result});
+    }
+  });
+} 
+
 //获取首页展示图片
 exports.getProductPhotoByFileId = function(req, res){
   var photoFileId = req.param("photoFileId");
