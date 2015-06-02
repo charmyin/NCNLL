@@ -16,13 +16,14 @@
     <script type="text/javascript" src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function(){
-            $.post("/imageInfo/searchList",{search_eq_productItemId:"556dbc0e03f25768128f568e"}, function(data){
+            /*$.post("/imageInfo/searchList",{search_eq_productItemId:"556dbc0e03f25768128f568e"}, function(data){
                 for(var i=0; i<data.total; i++){
                     var htmlItem = '<div class="col-sm-6 col-md-4"><img src="http://localhost:8091/images/'+data.rows[i].name+'" style="width:400px;height:400px;"></div>';
                     $("#bodyDiv").append(htmlItem);
                 }
+            })*/
         });
-            })
+            
             
     </script>
   </head>
@@ -103,6 +104,10 @@
  
       <!--Body-->
     <div class="row" style="margin:5px" id="bodyDiv">
+        <% for(var i=0; i<dataList.length; i++) {%>
+           <li></li>
+           <div class="col-sm-6 col-md-4"><a href="http://localhost:8091/images/"><%= dataList[i].name %></a></div>
+        <% } %>
        
     </div>
 

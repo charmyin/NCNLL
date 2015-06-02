@@ -17,6 +17,7 @@ var brands = require("../app/controllers/products/brands");
 var productsManage = require("../app/controllers/products/productsManage");
 var productsItemCtrl = require("../app/controllers/products/productItem");
 var imageInfoCtrl = require("../app/controllers/products/imageInfo");
+var demoCtrl = require("../app/controllers/demos/demo");
 
 
 var multipart = require('connect-multiparty');
@@ -122,9 +123,11 @@ module.exports = function (app, passport) {
 
     //产品图片管理
     app.post('/imageInfo/searchList',imageInfoCtrl.searchList);
-    
 
-/*    app.get("/userSession", user.userSession);*/
+    //Demo for test
+    app.get('/demo/projectList', demoCtrl.projectList);
+
+ /*    app.get("/userSession", user.userSession);*/
 
  // user routes
  /* app.get('/login', users.login)
