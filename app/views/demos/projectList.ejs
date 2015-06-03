@@ -22,8 +22,13 @@
                     $("#bodyDiv").append(htmlItem);
                 }
             })*/
+
         });
-            
+
+        function gotoProductList(id){
+            $("#search_eq_projectId").val(id);
+            $("#formId").submit();
+        }
             
     </script>
   </head>
@@ -98,17 +103,20 @@
     </div><!-- /.container-fluid -->
 </nav>
  
+<ol class="breadcrumb ng-scope" style="margin:0;">
+    <li><a href="/#!/">首页</a></li>
+    <li class="active">生产项目</li>
+</ol>
 
 
-
- 
-      <!--Body-->
+    <form id="formId" action="/demo/productList" method="post">
+        <input type="hidden" name="search_eq_projectId" id="search_eq_projectId">
+    </form>
+    <!--Body-->
     <div class="row" style="margin:5px" id="bodyDiv">
         <% for(var i=0; i<dataList.length; i++) {%>
-           <li></li>
-           <div class="col-sm-6 col-md-4"><a href="http://localhost:8091/images/"><%= dataList[i].name %></a></div>
+           <div class="col-sm-6 col-md-4"><a href="javascript:gotoProductList('<%= dataList[i]._id %>')" ><%= dataList[i].name %></a></div>
         <% } %>
-       
     </div>
 
     <!--Footer-->

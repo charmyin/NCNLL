@@ -44,6 +44,7 @@ var ProductItemSchema = new Schema({
       //viewId:{type:String,default:""},
       //变更时，需要清空原来camera表中的数据（如果原来camera表中已经不是自己的了，则不需要清空），然后录入当前数据
       //camera:{cameraId:{type:String,default:""}, createDate:{type:Date},creatorId:{type:String,default:""}},
+      viewIndex:{type:String,default:""},
       cameraId:{type:String,default:""},
       title:{type:String,default:""},
       createTime:{type:Date, default:new Date()},

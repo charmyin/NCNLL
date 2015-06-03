@@ -126,6 +126,9 @@ module.exports = function (app, passport) {
 
     //Demo for test
     app.get('/demo/projectList', demoCtrl.projectList);
+    app.post('/demo/productList', demoCtrl.productList);
+    app.post('/demo/productItemList', demoCtrl.productItemList);
+    app.post('/demo/productItemImageList', demoCtrl.productItemImageList);
 
  /*    app.get("/userSession", user.userSession);*/
 

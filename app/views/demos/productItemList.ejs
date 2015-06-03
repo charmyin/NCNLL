@@ -16,14 +16,15 @@
     <script type="text/javascript" src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function(){
-            $.post("/imageInfo/searchList",{search_eq_productItemId:"556dbc0e03f25768128f568e"}, function(data){
-                for(var i=0; i<data.total; i++){
-                    var htmlItem = '<div class="col-sm-6 col-md-4"><img src="http://localhost:8091/images/'+data.rows[i].name+'" style="width:400px;height:400px;"></div>';
-                    $("#bodyDiv").append(htmlItem);
-                }
-        });
-            })
-            
+        
+        })
+        
+         function gotoProductItemImageList(productItemid, viewIndex){
+            $("#search_eq_projectItemId").val(productItemid);
+            $("#search_eq_viewIndex").val(viewIndex);
+            $("#formId").submit();
+        }
+
     </script>
   </head>
   <body>
@@ -96,19 +97,35 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+
+    <ol class="breadcrumb ng-scope" style="margin:0;">
+        <li><a href="/#!/">首页</a></li>
+        <li class="active">产品个体</li>
+    </ol>
+
+    <form id="formId" action="/demo/productItemImageList" method="post">
+        <input type="hidden" name="search_eq_projectId" id="search_eq_projectId">
+    </form>
  
-
-
-
- 
-      <!--Body-->
-    <div class="row" style="margin:5px" id="bodyDiv">
-       
+    <!--Body-->
+    <div class="row" id="bodyDiv">
+        <% for(var i=0; i<dataList.length; i++) {%>
+            <div class="thumbnail">
+              <div class="caption">
+                <h3><%= dataList[i].name %></h3>
+                <p></p>
+                <p> 
+                    <% for(var j=0; j<dataList[i].cameraViews.length; j++) {%>
+                        <a href="javascript:gotoProductItemImageList('<%= dataList[i]._id %>','<%= dataList[i].cameraViews[j].viewIndex %>')" class="btn btn-primary" role="button"><%=dataList[i].cameraViews[j].title%></a>
+                    <% } %>
+                </p>
+              </div>
+            </div>
+        <% } %>
     </div>
 
     <!--Footer-->
 <nav class="navbar navbar-default"  style="margin-bottom: 0;text-align: center; ">
-
     <div>
         Supported by : <a href="http://glyphicons.com/" target="_blank">GLYPHICONS.COM</a>
     </div>
