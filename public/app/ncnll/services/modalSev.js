@@ -40,40 +40,15 @@
               $(this).attr("src",$(this).attr("ng-srcd"));
             });
           }
-
           //console.log(scope.allTabs)
           var html = '<div id="cmng-tab-modal" cmng-tab-modal></div>';
-
           // Step 1: parse HTML into DOM element
           var template = angular.element(html);
           // Step 2: compile the template and link the compiled template with the scope.
           var linkFnelement = $compile(template)(scope, function(clonedElement, scopeTmp) {
             //需要延时1毫秒，等待渲染成功
-            setTimeout(function(){
-              // Step 4: Append to DOM
-              //attach the clone to DOM document at the right place
-              $("body").append(clonedElement);
-              $('#myModal').modal('show');
-
-              //关闭modal时，清除modal中的所有内容
-              $('#myModal').on('hidden.bs.modal', function (e) {
-                //Modal关闭后，停止Modal中视频加载
-                $(".videoInModalTab source").attr("src", "novideo");
-                $(".videoInModalTab").load();
-
-                if($('#cmng-tab-modal')){
-                  $('#cmng-tab-modal').remove();
-                }
-
-                $(linkFnelement).remove();
-                $(clonedElement).remove();
-                delete linkFnelement;
-                delete clonedElement;
-              });
-
-              scope.$digest();
-
-            },200);
+            $("#myModal").html(clonedElement);
+            $('#myModal').modal('show');
           });
       };
     }]);

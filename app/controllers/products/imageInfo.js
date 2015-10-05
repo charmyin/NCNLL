@@ -22,4 +22,11 @@ exports.searchList = function(req, res) {
 };
 
 
-
+exports.searchHistoryImageList = function(req, res) {
+    CommonModel.find({ $and:[{cameraSerialId:req.body.cameraSerialId}, {createTime:{ $lt: new Date(req.body.endTime) }}, {createTime:{ $gt: new Date(req.body.startTime) }} ]}).exec(function(err,list){
+      if(err){
+        console.log(err)
+      }
+      utils.setQueryListResponse(err, req, res, list, 0);
+    });
+};

@@ -49,11 +49,15 @@ var ProductInfo = new Schema({
   }],
   //实时图片
   realtimePics:[{
-    tabType:{type:Number},
-    orderIndex:{type:Number},
-    title:{type:String, default:''},
-    realtimeID:{type:String, default:''},
-    description:{type:String, default:''}
+      tabType:{type:Number},
+      orderIndex:{type:Number},
+      title:{type:String, default:''},
+      realtimeID:{type:String, default:''},
+      cameraId:{type:String, default:''},
+      startTime:{type:Date},
+      endTime:{type:Date},
+      cameraIndex:{type:String, default:''},
+      description:{type:String, default:''}
   }]
 
 });

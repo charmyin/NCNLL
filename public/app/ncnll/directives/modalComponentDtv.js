@@ -2,39 +2,51 @@
 	var modalComponentDirective=angular.module("modalComponentDirective", ["ui-rangeSlider"]);
 
 	//按天计算的历史图片slider
-	modalComponentDirective.directive('cmngHistoryImage', function () {
+	modalComponentDirective.directive('cmngHistoryImage', ["$http", function($http) {
 		function link(scope, element, attrs) {
-	    scope.imgName = "1825";
 
-      scope.sliderSetting = {
-        valueA: 5000,
-        valueB: 3000,
-        maxValue:7000,
-        minValue:1000,
-        step:1
-      };
-      //上传时候，记录文件名称，即编号+日期+时分秒
+      //获取数据
+       $http.post('/imageInfo/searchHistoryImageList', {"cameraSerialId":scope.$parent.item.cameraId,"startTime":scope.$parent.item.startTime,"endTime":scope.$parent.item.endTime}).success(function(data){
+        console.log(data)
+          if(data.success){
+            
+            scope.imgName = data.rows[0].path;
 
-      scope.jumpStep = 1;
+            scope.sliderSetting = {
+              valueA: 0,
+              valueB: 3000,
+              maxValue:data.rows.length-1,
+              minValue:0,
+              step:1
+            };
+            //上传时候，记录文件名称，即编号+日期+时分秒
 
-      scope.gogogo = function(){
-        var tmpCount = scope.sliderSetting.valueA+parseInt(scope.jumpStep);
-        if(tmpCount<scope.sliderSetting.maxValue){
-          scope.sliderSetting.valueA=tmpCount;
-          scope.imgName = tmpCount;
-        }
-      };
-      scope.changePic = function(){
-        scope.imgName =scope.sliderSetting.valueA;
-        scope.$apply();
-      };
-      scope.backbackback = function(){
-        var tmpCount = scope.sliderSetting.valueA-parseInt(scope.jumpStep);
-        if(tmpCount>scope.sliderSetting.minValue){
-          scope.sliderSetting.valueA=tmpCount;
-          scope.imgName = tmpCount;
-        }
-      };
+            scope.jumpStep = 1;
+
+            scope.gogogo = function(){
+              var tmpCount = scope.sliderSetting.valueA+parseInt(scope.jumpStep);
+              if(tmpCount<scope.sliderSetting.maxValue){
+                scope.sliderSetting.valueA=tmpCount;
+                scope.imgName = data.rows[tmpCount].path;
+              }
+            };
+            scope.changePic = function(){
+              scope.imgName =data.rows[scope.sliderSetting.valueA].path;
+              scope.$apply();
+            };
+            scope.backbackback = function(){
+              var tmpCount = scope.sliderSetting.valueA-parseInt(scope.jumpStep);
+              if(tmpCount>scope.sliderSetting.minValue){
+                scope.sliderSetting.valueA=tmpCount;
+                scope.imgName = data.rows[tmpCount].path;
+              }
+            };
+
+          }
+       });
+       
+
+	    
     }
 
 		return {
@@ -42,7 +54,7 @@
 			templateUrl:"/app/ncnll/views/partials/tabModal/historyImages.html",
 			link:link
 		};
-	});
+	}]);
 
 
 	modalComponentDirective.directive('cmngVideoShow', function () {
@@ -121,93 +133,6 @@
             }
         };
     });
-
-
-  //实时照片配置上传模块
-  modalComponentDirective.directive('cmngRealtimePicsUpload', function () {
-
-    //移除Modal中的tab
-      function removeMyself(element, scope){
-        //$("#tabHead1").trigger("click");
-       // angular.element('#tabHead1').trigger('click');
-        var tabDivId = "tabHead"+$(element).attr("tabIndex");
-        $("#"+tabDivId).parent().remove();
-        //remove tab body
-        $(element).remove();
-        //默认选中1
-        scope.$parent.selectedTab = 1;
-      }
-
-    function link(scope, element, attrs) {
-      //获取到对应tabindex的tabItem
-      var tabItemArray = scope.$parent.basicInfo.itemArray;
-      if(tabItemArray)
-        for (var i = 0; i < tabItemArray.length; i++) {
-          if(tabItemArray[i].orderIndex == $(element).attr('tabIndex')){
-            scope.realtimePicsModel = tabItemArray[i];
-            break;
-          }
-        }
-    }
-
-    return {
-      restrict: 'A',
-      controller:['$scope', '$http', '$element', '$window', function($scope,$http, $element, $window){
-
-        //提交表单
-        $scope.submitForm = function(){
-          $scope.realtimePicsModel._id = $scope.$parent.basicInfo._id;
-          $scope.realtimePicsModel.orderIndex = $($element).attr("tabindex");
-          $scope.realtimePicsModel.tabType = 2;
-          $http({
-            url:"/products/saveRealtimePics",
-            data:$scope.realtimePicsModel,
-            method:"POST",
-            headers:{'Content-Type':'application/json; charset=UTF-8'}
-          }).success(function(data){
-           
-          }).error(function(err){
-            alert(err);
-          });
-        };
-
-
-        //移除图片
-        $scope.removeRealtimePics = function(){
-          var tempObj={};
-          tempObj._id = $scope.$parent.basicInfo._id;
-          tempObj.orderIndex = $($element).attr("tabindex");
-          $http({
-            url:"/products/removeRealtimePics",
-            data:tempObj,
-            method:"POST",
-            headers:{'Content-Type':'application/json; charset=UTF-8'}
-          }).success(function(data){
-
-            removeMyself($element, $scope);
-            //移出原有数组中的item
-            /*var arrayPosition;
-            for (var i = 0; i < $scope.$parent.basicInfo.itemArray.length; i++) {
-              if($scope.$parent.basicInfo.itemArray[i].orderIndex == i){
-                arrayPosition=i;
-              }
-            }
-            if ( ~arrayPosition ) $scope.$parent.basicInfo.itemArray.splice(arrayPosition, 1);*/
-            $scope.$parent.basicInfo = data.productInfo;
-          }).error(function(err){
-            console.log(err);
-          });
-        };
-      }],
-      scope:{
-        isolateRealtimePics:"&"
-      },
-      templateUrl:"/app/ncnll/views/productManage/partials/realtimePicsUploadDtv.html",
-      link:link
-    };
-
-  });
-
 
   modalComponentDirective.directive('cmngPraise',['$http','$window', '$rootScope', 'spinDelaySev', function($http, $window, $rootScope, spinDelaySev) {
     function link(scope, element, attrs) {

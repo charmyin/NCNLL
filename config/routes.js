@@ -123,6 +123,7 @@ module.exports = function (app, passport) {
 
     //产品图片管理
     app.post('/imageInfo/searchList',imageInfoCtrl.searchList);
+    app.post('/imageInfo/searchHistoryImageList',imageInfoCtrl.searchHistoryImageList);
 
     //Demo for test
     app.get('/demo/projectList', demoCtrl.projectList);
