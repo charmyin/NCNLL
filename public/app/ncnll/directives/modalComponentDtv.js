@@ -7,13 +7,15 @@
 
       //获取数据
        $http.post('/imageInfo/searchHistoryImageList', {"cameraSerialId":scope.$parent.item.cameraId,"startTime":scope.$parent.item.startTime,"endTime":scope.$parent.item.endTime}).success(function(data){
-        console.log(data)
           if(data.success){
-            
-            scope.imgName = data.rows[0].path;
-
+            scope.allData = data.rows;
+            scope.imgName = data.rows[data.rows.length-1].path;
+            scope.currentImageTime = data.rows[data.rows.length-1].createTime;
+            scope.maxValueDate = scope.currentImageTime;
+            scope.minValueDate = data.rows[0].createTime;
+            scope.maxItemCount = data.rows.length;
             scope.sliderSetting = {
-              valueA: 0,
+              valueA: data.rows.length-1,
               valueB: 3000,
               maxValue:data.rows.length-1,
               minValue:0,
@@ -22,25 +24,42 @@
             //上传时候，记录文件名称，即编号+日期+时分秒
 
             scope.jumpStep = 1;
-
+            
             scope.gogogo = function(){
               var tmpCount = scope.sliderSetting.valueA+parseInt(scope.jumpStep);
               if(tmpCount<scope.sliderSetting.maxValue){
                 scope.sliderSetting.valueA=tmpCount;
                 scope.imgName = data.rows[tmpCount].path;
+                scope.currentImageTime = data.rows[tmpCount].createTime;
               }
             };
             scope.changePic = function(){
               scope.imgName =data.rows[scope.sliderSetting.valueA].path;
-              scope.$apply();
+              scope.currentImageTime = data.rows[scope.sliderSetting.valueA].createTime;
+              //scope.$apply();
             };
             scope.backbackback = function(){
               var tmpCount = scope.sliderSetting.valueA-parseInt(scope.jumpStep);
               if(tmpCount>scope.sliderSetting.minValue){
                 scope.sliderSetting.valueA=tmpCount;
                 scope.imgName = data.rows[tmpCount].path;
+                scope.currentImageTime = data.rows[tmpCount].createTime;
               }
             };
+
+            scope.nextSlideImg  = function(){
+              if(scope.sliderSetting.valueA>0){
+                scope.sliderSetting.valueA--;
+                scope.changePic();
+              }
+            }
+
+            scope.prevSlideImg = function(){
+              if(scope.sliderSetting.valueA<(scope.maxItemCount-1)){
+                scope.sliderSetting.valueA++;
+                scope.changePic();
+              }
+            }
 
           }
        });

@@ -1,4 +1,11 @@
-<img style="min-height:250px;width: 100%;" class="data-image" ng-src="http://localhost:8888/{{imgName}}" alt="">
+<img style="min-height:250px;width: 100%;" class="data-image" ng-src="http://192.168.1.105:8888/{{imgName}}" alt="">
+<!-- <div style="height:0px;"><span style="top:-20px;">Left</span></div> -->
 <!-- <div class="date-image-slider" style="margin:10px 10px 10px 10px;"></div> -->
 <!-- <slider floor="100" ceiling="1000" step="5" precision="2" ng-model="item.cost"></slider> -->
-  <div range-slider min="sliderSetting.minValue" max="sliderSetting.maxValue" model-max="sliderSetting.valueA" on-key-up-handler="changePic" pin-handle="min" step="sliderSetting.step"></div>
+<a class="cmScrollArrow cmScrollPrev" style="margin-top:-75px;" href="javascript:void(0);" ng-click="nextSlideImg()"></a>
+<a class="cmScrollArrow cmScrollNext" style="margin-top:-75px;" href="javascript:void(0);" ng-click="prevSlideImg()"></a>
+<div range-slider min="sliderSetting.minValue" max="sliderSetting.maxValue" model-max="sliderSetting.valueA" on-key-up-handler="changePic" pin-handle="min" step="sliderSetting.step" show-values="true"></div>
+<div><a href="javascript:void(0);" style="font-size:16px;font-weight: bold;">{{item.title}}</a><span class="label label-primary" style="float:right;">产地</span></div>
+<p style="width:100%; text-indent: 10px;">
+   {{item.description}}
+</p>

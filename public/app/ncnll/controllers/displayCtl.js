@@ -381,7 +381,7 @@
           }, 2e3);
 
         }
-        console.log(data);
+        //console.log(data);
     });
 
     //渲染展示用modal，并显示

@@ -98,11 +98,15 @@
             template: ['<div class="ngrs-range-slider">',
                          '<div class="ngrs-runner">',
                            '<div class="ngrs-handle ngrs-handle-min"><i></i></div>',
-                           '<div class="ngrs-handle ngrs-handle-max"><i></i></div>',
+                           '<div class="ngrs-handle ngrs-handle-max"><i>&nbsp;&nbsp;&nbsp;&nbsp;{{filteredModelMax+1}}/{{$parent.maxItemCount}}</i></div>',
                            '<div class="ngrs-join"></div>',
                          '</div>',
-                         '<div class="ngrs-value ngrs-value-min" ng-show="showValues">{{filteredModelMin}}</div>',
-                         '<div class="ngrs-value ngrs-value-max" ng-show="showValues">{{filteredModelMax}}</div>',
+                         //'<div class="ngrs-value ngrs-value-min" ng-show="showValues">{{filteredModelMin}}</div>',
+                         //'<div class="ngrs-value ngrs-value-max" ng-show="showValues">{{filteredModelMax}}</div>',
+                         //changed by charmyin
+                         '<div class="ngrs-value ngrs-value-min" ng-show="showValues">{{$parent.minValueDate}}</div>',
+                         '<div class="ngrs-value ngrs-value-current" ng-show="showValues">{{$parent.allData[filteredModelMax].createTime}}</div>',
+                         '<div class="ngrs-value ngrs-value-max" ng-show="showValues">{{$parent.maxValueDate}}</div>',
                        '</div>'].join(''),
             scope: {
                 disabled: '=?',
@@ -141,7 +145,7 @@
                 // filtered
                 scope.filteredModelMin = scope.modelMin;
                 scope.filteredModelMax = scope.modelMax;
-
+               
                 /**
                  *  FALL BACK TO DEFAULTS FOR SOME ATTRIBUTES
                  */
@@ -487,7 +491,7 @@
 
                                 //Added by charmyin
                                 if (angular.isFunction(scope.onKeyUpHandler)) {
-                                    console.log(scope.onKeyUpHandler);
+                                    //console.log(scope.onKeyUpHandler);
                                     scope.onKeyUpHandler();
                                 }
 
