@@ -105,7 +105,7 @@
                          //'<div class="ngrs-value ngrs-value-max" ng-show="showValues">{{filteredModelMax}}</div>',
                          //changed by charmyin
                          '<div class="ngrs-value ngrs-value-min" ng-show="showValues">{{$parent.minValueDate}}</div>',
-                         '<div class="ngrs-value ngrs-value-current" ng-show="showValues">{{$parent.allData[filteredModelMax].createTime}}</div>',
+                         '<div class="ngrs-value ngrs-value-current" ng-show="showValues">当前时间：{{$parent.allData[filteredModelMax].createTime}}</div>',
                          '<div class="ngrs-value ngrs-value-max" ng-show="showValues">{{$parent.maxValueDate}}</div>',
                        '</div>'].join(''),
             scope: {

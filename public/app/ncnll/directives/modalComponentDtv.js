@@ -36,7 +36,11 @@
             scope.changePic = function(){
               scope.imgName =data.rows[scope.sliderSetting.valueA].path;
               scope.currentImageTime = data.rows[scope.sliderSetting.valueA].createTime;
-              //scope.$apply();
+              scope.$apply();
+            };
+            scope.changePicLocal = function(){
+              scope.imgName =data.rows[scope.sliderSetting.valueA].path;
+              scope.currentImageTime = data.rows[scope.sliderSetting.valueA].createTime;
             };
             scope.backbackback = function(){
               var tmpCount = scope.sliderSetting.valueA-parseInt(scope.jumpStep);
@@ -50,14 +54,14 @@
             scope.nextSlideImg  = function(){
               if(scope.sliderSetting.valueA>0){
                 scope.sliderSetting.valueA--;
-                scope.changePic();
+                scope.changePicLocal();
               }
             }
 
             scope.prevSlideImg = function(){
               if(scope.sliderSetting.valueA<(scope.maxItemCount-1)){
                 scope.sliderSetting.valueA++;
-                scope.changePic();
+                scope.changePicLocal();
               }
             }
 
