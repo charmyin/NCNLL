@@ -25,6 +25,64 @@
     };
   }]);
 
+  /**************找回密码*****************/
+  displayController.controller('getLostPasswordCtrl',['$scope', '$http', 'spinDelaySev', '$window', function($scope, $http, spinDelaySev, $window){
+    $scope.error = {"email":"","mobile":"","all":""};
+
+    $scope.nextSendEmail = function(){
+      //检验email
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var isOk = re.test($scope.registEmail);
+      if(!isOk){
+        $scope.error.email="邮箱格式错误";
+      }else{
+        $scope.error.email="";
+      }
+      //发送邮箱
+      var overlay = spinDelaySev("保存中...");
+      $http({
+        url:"/getLostPassword",
+        method:"POST",
+        data: $.param({address:$scope.registEmail}),
+        headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+      }).success(function(data){
+        if(data.success){
+          $window.setTimeout(function() {
+            overlay.update({
+              icon: "/vendors/iosOverlay/img/check.png",
+              text: "保存成功！"
+            });
+          }, 1e3);
+        }else{
+          $window.setTimeout(function() {
+            overlay.update({
+              icon: "/vendors/iosOverlay/img/cross.png",
+              text: data.message
+            });
+          }, 1e3);
+        }
+
+        $window.setTimeout(function() {
+          overlay.hide();
+        }, 2e3);
+      }).error(function(){
+        $window.setTimeout(function() {
+          overlay.update({
+            icon: "/vendors/iosOverlay/img/cross.png",
+            text: "内部错误！"
+          });
+        }, 1e3);
+        $window.setTimeout(function() {
+          overlay.hide();
+        }, 2e3);
+      });
+  
+
+    }
+
+
+  }]);
+
   /************************右侧菜单栏************************/
   displayController.controller('rightNavbarCtl', ['$scope','$location', '$rootScope', '$http', 'spinDelaySev', '$window', function ($scope,$location, $rootScope, $http, spinDelaySev, $window) {
     //是否登录成功

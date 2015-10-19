@@ -39,7 +39,8 @@
     "connect-multiparty": "~1.1.0",
     "gridfs-stream":"~0.5.1",
     "gm":"~1.13.3",
-    "bluebird":"~2.9.25"
+    "bluebird":"~2.9.25",
+    "nodemailer":"~0.7.1"
   },
   "devDependencies": {
     "supertest": "latest",

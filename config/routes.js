@@ -58,9 +58,10 @@ module.exports = function (app, passport) {
     app.get('/users/:userId', users.show);
     app.post('/updateUserInfo', users.updateUserInfo);
     app.post('/changePassword', users.changePassword);
-    app.post('/user/uploadUserPhoto', users.uploadUserPhoto);
     app.get('/user/photoid/:photoFileId', users.getUserPhotoByFileId);
     app.get('/user/photoid', users.getUserPhotoByFileId);
+
+    app.post('/getLostPassword', users.getLostPassword);
 
     //收藏产品
     app.post('/user/storeProduct', users.storeProduct);
@@ -87,8 +88,7 @@ module.exports = function (app, passport) {
     app.post("/products/removeRealtimePics", productsManage.removeRealtimePics);
     //产品浏览次数记录
     app.post("/productInfo/increaseBrowseCount", productsManage.increaseBrowseCount);
-    //轮播器图片上传
-    app.post("/products/uploadProductPhotoInTab", productsManage.uploadProductPhotoInTab);
+ 
 
 
     //Session中的user
@@ -113,10 +113,7 @@ module.exports = function (app, passport) {
     //产品点赞
     app.post("/product/praiseOrNot", productsManage.productPraiseOrNot);
 
-    //Upload and download
-    app.post('/upload', multipartMiddleware, fileUploader.uploadPostedFile);
     app.get('/download/:identifier', fileUploader.downloadFile);
-    app.get('/upload', fileUploader.uploadGetStatus);
 
     //产品个体管理
     app.get('/productItem/id/:_id',productsItemCtrl.findProductItemById);
@@ -126,10 +123,10 @@ module.exports = function (app, passport) {
     app.post('/imageInfo/searchHistoryImageList',imageInfoCtrl.searchHistoryImageList);
 
     //Demo for test
-    app.get('/demo/projectList', demoCtrl.projectList);
+ /*   app.get('/demo/projectList', demoCtrl.projectList);
     app.post('/demo/productList', demoCtrl.productList);
     app.post('/demo/productItemList', demoCtrl.productItemList);
-    app.post('/demo/productItemImageList', demoCtrl.productItemImageList);
+    app.post('/demo/productItemImageList', demoCtrl.productItemImageList);*/
 
  /*    app.get("/userSession", user.userSession);*/
 

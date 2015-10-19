@@ -9,6 +9,7 @@ var mongoose = require('mongoose')
   , User = mongoose.model('User')
   , ProductInfo = mongoose.model('ProductInfo')
   , utils = require('../../lib/utils')
+  , emailUtils = require('../../lib/emailutils')
   , passport = require('passport');
 var Grid = require('gridfs-stream');
 var fs = require('fs');
@@ -212,6 +213,21 @@ exports.changePassword = function(req, res){
   });*/
 };
 
+exports.getLostPassword = function(req, res){
+  var password = utils.makePassword();
+  req.session.tempPassword ={"createTime":new Date(), "password":password};
+  //send email
+  console.log(req.body.address);
+  emailUtils.sendEmail(req.body.address, "你从哪里来", "秘钥找回页面", "<strong>临时秘钥为："+password+"</strong>", function(error){
+    if(error){
+       res.json({success:false});
+     }else{
+       res.json({success:true});
+     }
+  });
+ 
+}
+
 //获取所有的生产者
 exports.getAllProducers = function(req, res){
   //1代表生产者
@@ -252,78 +268,6 @@ exports.getUserPhotoByFileId = function(req, res){
     }
 };
 
-//上传用户图片
-exports.uploadUserPhoto = function(req, res) {
-
-    flow.post(req, function(status, filename, original_filename, identifier) {
-
-        if(status=="done"){
-          //fs.createReadStream('D:/test.jpg').pipe(writestream);
-          var writeTmpImgStream = fs.createWriteStream("./tmp/flow-"+identifier+"tmp");
-
-          flow.write(identifier, writeTmpImgStream, {
-
-            onDone:function(){
-
-              //将文件写入gridfs
-              var writestream = gfs.createWriteStream({
-                userId : req.user._id,
-                filename: filename, // a filename
-                mode: 'w+', // default value: w+, possible options: w, w+ or r, see [GridStore](http://mongodb.github.com/node-mongodb-native/api-generated/gridstore.html)
-               //chunkSize: 1024,
-               // content_type: 'image/jpeg', // For content_type to work properly, set "mode"-option to "w" too!
-                root: 'userPhoto'
-              });
-
-              // var writeTmpImgStreamSmall = fs.createWriteStream("./flow-"+identifier+"tmp");
-              //将原图缩小后，放入gridfs中
-              imageMagick("./tmp/flow-"+identifier+"tmp")
-              .scale('410', '410')
-              .stream().pipe(writestream)
-              .on('close', function () {
-                fs.unlink("./tmp/flow-"+identifier+"tmp");
-              });
-
-              /*(function (err, stdout, stderr) {
-                stdout.pipe(writestream);
-              });*/
-
-              //清除文件夹中已经存入数据库的文件
-              flow.clean(identifier);
-              //删除原有的用户图片，录入新图片
-              User.findOne({ _id: req.user._id}, function (err, user) {
-                  if(user && user.userPhotoID){
-                    //删除数据库中的文件
-                    var photoId = new mongoose.mongo.BSONPure.ObjectID(user.userPhotoID);
-                      gfs.remove({_id:user.userPhotoID, root:'userPhoto'}, function(){
-                    });
-                  }
-                  user.userPhotoID = writestream.id;
-                  user.save(function(err){
-                    if(!err) {
-                      res.json({success:true});
-                    }
-                    else {
-                      res.json({success:false, message:"内部错误!"});
-                    }
-                  });
-              });
-            }
-          });
-        }else if(status=="invalid_flow_request2"){
-          res.send(200, {
-            success:false,
-            "message":"文件太大，请小于1M"
-          });
-        }else{
-          res.send(200, {
-            success:true
-          });
-        }
-
-    });
-};
-
 
 //收藏, 如果有重复，则删除； 删除返回FALSE； 插入返回true。
 exports.storeProduct = function(req, res){
@@ -334,8 +278,6 @@ exports.storeProduct = function(req, res){
 
   var findIndexByProductId = function(productId, array){
     for(var i=0; i<array.length; i++){
-       console.log(array[i]._id);
-        console.log(productId+"---------------------");
       if(array[i]._id==productId){
         return i;
       }
