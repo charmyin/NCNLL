@@ -26,7 +26,7 @@
   }]);
 
   /**************找回密码*****************/
-  displayController.controller('getLostPasswordCtrl',['$scope', '$http', 'spinDelaySev', '$window', function($scope, $http, spinDelaySev, $window){
+  displayController.controller('getLostPasswordCtrl',['$scope', '$http', 'spinDelaySev', '$window', '$interval', function($scope, $http, spinDelaySev, $window, $interval){
     $scope.error = {"email":"","mobile":"","all":""};
 
     $scope.nextSendEmail = function(){
@@ -35,11 +35,20 @@
       var isOk = re.test($scope.registEmail);
       if(!isOk){
         $scope.error.email="邮箱格式错误";
+        return;
       }else{
         $scope.error.email="";
       }
       //发送邮箱
-      var overlay = spinDelaySev("保存中...");
+      var overlay = spinDelaySev("发送中...");
+      //发送邮件
+      $scope.resendTime=30;
+      $interval(function(){
+        $scope.resendTime--;
+        if($scope.resendTime==0){
+          $scope.resendTime = "";
+        }
+      }, 1000, 30);
       $http({
         url:"/getLostPassword",
         method:"POST",
@@ -50,7 +59,7 @@
           $window.setTimeout(function() {
             overlay.update({
               icon: "/vendors/iosOverlay/img/check.png",
-              text: "保存成功！"
+              text: "发送成功！"
             });
           }, 1e3);
         }else{
@@ -61,7 +70,6 @@
             });
           }, 1e3);
         }
-
         $window.setTimeout(function() {
           overlay.hide();
         }, 2e3);

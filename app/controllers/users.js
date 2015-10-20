@@ -214,11 +214,19 @@ exports.changePassword = function(req, res){
 };
 
 exports.getLostPassword = function(req, res){
-  var password = utils.makePassword();
-  req.session.tempPassword ={"createTime":new Date(), "password":password};
+  console.log(req.session.tempPassword);
+  if(req.session.tempPassword && req.session.tempPassword.createTime && req.session.tempPassword.password){
+    var msDiff = new Date().getTime() - new Date(req.session.tempPassword.createTime).getTime();
+    console.log(new Date().getTime() +"---"+ new Date(req.session.tempPassword.createTime).getTime())
+    if(msDiff>300000){
+      req.session.tempPassword ={"createTime":new Date(), "password":utils.makePassword()};
+    }
+  }else{
+    req.session.tempPassword ={"createTime":new Date(), "password":utils.makePassword()};
+  }
+  
   //send email
-  console.log(req.body.address);
-  emailUtils.sendEmail(req.body.address, "你从哪里来", "秘钥找回页面", "<strong>临时秘钥为："+password+"</strong>", function(error){
+  emailUtils.sendEmail(req.body.address, "你从哪里来", "秘钥找回页面", "<strong>临时秘钥为："+req.session.tempPassword.password+"</strong>", function(error){
     if(error){
        res.json({success:false});
      }else{
