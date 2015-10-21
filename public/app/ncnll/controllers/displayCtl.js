@@ -84,9 +84,77 @@
           overlay.hide();
         }, 2e3);
       });
-  
-
     }
+
+    //重置密码
+    $scope.user = {};
+    $scope.postNewPwd = function(){
+      var overlay = spinDelaySev("保存中...");
+      if(!($scope.user.newPasswordRepeat)||!($scope.user.tempPassword)){
+        $window.setTimeout(function() {
+          overlay.update({
+            icon: "/vendors/iosOverlay/img/cross.png",
+            text: "密码不能为空！"
+          });
+        }, 1e3);
+        $window.setTimeout(function() {
+          overlay.hide();
+        }, 2e3);
+        return;
+      }
+      if($scope.user.newPasswordRepeat!=$scope.user.newPassword){
+        $window.setTimeout(function() {
+          overlay.update({
+            icon: "/vendors/iosOverlay/img/cross.png",
+            text: "密码不一致！"
+          });
+        }, 1e3);
+        $window.setTimeout(function() {
+          overlay.hide();
+        }, 2e3);
+        return;
+      }
+     
+      
+      $http({
+        url:"/resetPassword",
+        method:"POST",
+        data:$.param($scope.user),
+        headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+      }).success(function(data){
+        if(data.success){
+          $window.setTimeout(function() {
+            overlay.update({
+              icon: "/vendors/iosOverlay/img/check.png",
+              text: "保存成功！"
+            });
+          }, 1e3);
+        }else{
+          $window.setTimeout(function() {
+            overlay.update({
+              icon: "/vendors/iosOverlay/img/cross.png",
+              text: data.message
+            });
+          }, 1e3);
+        }
+
+        $window.setTimeout(function() {
+          overlay.hide();
+        }, 2e3);
+      }).error(function(){
+        $window.setTimeout(function() {
+          overlay.update({
+            icon: "/vendors/iosOverlay/img/cross.png",
+            text: "内部错误！"
+          });
+        }, 1e3);
+        $window.setTimeout(function() {
+          overlay.hide();
+        }, 2e3);
+      });
+    };
+
+ 
 
 
   }]);
@@ -109,6 +177,7 @@
     $rootScope.$on('loginSuccessEvent', function(event,user) {
       $scope.loginSuccessfully=true;
       $scope.username = user.username;
+      $location.path("/");
     });
 
     //登出,退出登录

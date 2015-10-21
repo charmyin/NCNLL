@@ -62,7 +62,7 @@ module.exports = function (app, passport) {
     app.get('/user/photoid', users.getUserPhotoByFileId);
 
     app.post('/getLostPassword', users.getLostPassword);
-
+    app.post('/resetPassword', users.resetPassword);
     //收藏产品
     app.post('/user/storeProduct', users.storeProduct);
     app.get('/user/getStoredProducts', users.getStoredProducts);

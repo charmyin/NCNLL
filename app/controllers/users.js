@@ -219,10 +219,10 @@ exports.getLostPassword = function(req, res){
     var msDiff = new Date().getTime() - new Date(req.session.tempPassword.createTime).getTime();
     console.log(new Date().getTime() +"---"+ new Date(req.session.tempPassword.createTime).getTime())
     if(msDiff>300000){
-      req.session.tempPassword ={"createTime":new Date(), "password":utils.makePassword()};
+      req.session.tempPassword ={"createTime":new Date(), "password":utils.makePassword(), "address":req.body.address};
     }
   }else{
-    req.session.tempPassword ={"createTime":new Date(), "password":utils.makePassword()};
+    req.session.tempPassword ={"createTime":new Date(), "password":utils.makePassword(), "address":req.body.address};
   }
   
   //send email
@@ -235,6 +235,43 @@ exports.getLostPassword = function(req, res){
   });
  
 }
+
+//重置密码（找回密码）
+exports.resetPassword = function(req, res){
+  
+
+  if(!(req.session.tempPassword && req.session.tempPassword.createTime && req.session.tempPassword.password)){
+    res.json({success:false, message:"秘钥已失效!"});
+    return;
+  }
+  var msDiff = new Date().getTime() - new Date(req.session.tempPassword.createTime).getTime();
+  if(msDiff>300000){
+    res.json({success:false, message:"秘钥已失效!"});
+    return;
+  }
+
+  var tempPassword = req.body.tempPassword;
+  var newPassword = req.body.newPassword;
+
+  if(req.session.tempPassword.password==tempPassword){
+    //update
+    User.findOne({ email: req.session.tempPassword.address}, function (err, user) {
+      user.password = newPassword;
+      user.save(function(err){
+        if(!err) {
+          res.json({success:true});
+          return;
+        }
+        else {
+          res.json({success:false, message:"内部错误!"});
+        }
+      });
+    });
+  }else{
+    //return error info
+     res.json({success:false, message:'秘钥有误!'});
+  }
+};
 
 //获取所有的生产者
 exports.getAllProducers = function(req, res){
