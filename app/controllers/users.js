@@ -17,6 +17,9 @@ var stream = require('stream');
 var gm = require('gm');
 var imageMagick = gm.subClass({ imageMagick : true });
 var Query = mongoose.Query;
+var Promise = require('bluebird');
+Promise.promisifyAll(User);
+Promise.promisifyAll(User.prototype);
 
 Grid.mongo = mongoose.mongo;
 
@@ -98,28 +101,43 @@ exports.session = login;
 
 exports.create = function (req, res) {
   var user = new User(req.body);
-  user.provider = 'local';
-  user.save(function (err) {
-    if (err) {
-        res.json({
-          success:false,
-          error:err.errors
+  if(!user.email){
+    res.json({success:false, message:"邮箱不能为空!"});
+    return;
+  }
+  //检验是否存在
+  User.findOneAsync({ email: user.email}).then(function(hasUser) {
+        if(hasUser){
+          res.json({success:false, message:"邮箱已被注册"});
+          return;
+        }
+        user.provider = 'local';
+        return user.saveAsync();
+  }).then(function(result) {
+      if(result){
+        // manually login the user once successfully signed up
+        req.logIn(user, function(err) {
+          if (err){
+            res.json({
+              success:false,
+              error:err.errors
+            });
+            return;
+          }
+          res.json({
+            success : true
+          });
         });
-    }
-    // manually login the user once successfully signed up
-    req.logIn(user, function(err) {
-      if (err){
-        res.json({
-          success:false,
-          error:err.errors
-        });
-      }
-       res.json({
-          success : true
-       });
-      /*return res.redirect('/')*/
+      }    
+}).catch(function(error){
+    console.log(error)
+    res.json({
+      success:false,
+      error:"内部错误"
     });
-  });
+});
+
+  
 };
 
 /**

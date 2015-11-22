@@ -17,23 +17,20 @@
     <script type="text/javascript" src="/vendors/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="/vendors/angular-touch/angular-touch.js"></script>
     <script type="text/javascript" src="/app/ncnll/directives/displayComponentsDtv.js"></script>
-    <!--  <link rel="stylesheet" type="text/css" href="/vendors/noUiSlider/jquery.nouislider.css"/> -->
-    <!-- <script type="text/javascript" src="/vendors/noUiSlider/jquery.nouislider.min.js"></script> -->
-    <!-- <link rel="stylesheet" type="text/css" href="/vendors/angularSlider/angular-slider.css"/> -->
-    <!-- <script type="text/javascript" src="/vendors/angularSlider/angular-slider.js"></script> -->
-    <!--   <script type="text/javascript" src="/vendors/angularSlider/ventuRocket/angular-slider.js"></script> -->
     <link rel="stylesheet" type="text/css" href="/vendors/angular-rangeslider/angular.rangeSlider.css"/>
     <script type="text/javascript" src="/vendors/angular-rangeslider/angular.rangeSlider.js"></script>
-    <script type="text/javascript" src="/app/ncnll/app.js"></script>
+    <script type="text/javascript" src="/app/ncnll/shareApp.js"></script>
     <script type="text/javascript" src="/app/ncnll/directives/modalComponentDtv.js"></script>
-    <script type="text/javascript" src="/app/ncnll/controllers/displayCtl.js"></script>
-    <script type="text/javascript" src="/app/ncnll/services/modalSev.js"></script>
+    <script type="text/javascript" src="/app/ncnll/controllers/displayShareCtl.js"></script>
     <script type="text/javascript" src="/app/ncnll/controllers/headAndFootCtl.js"></script>
+    <script type="text/javascript" src="/app/ncnll/services/modalSev.js"></script>
     <!--载入动画，以及提示信息-->
     <link rel='stylesheet' href='/vendors/iosOverlay/css/iosOverlay.css' />
     <script type="text/javascript" src="/vendors/iosOverlay/js/spin.min.js"></script>
     <script type="text/javascript" src="/vendors/iosOverlay/js/iosOverlay.js"></script>
     <script type="text/javascript" src="/app/ncnll/utils/utilsSev.js"></script>
+    <!--微信分享-->
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
     <!--文件上传控件
     <script type="text/javascript" src="/vendors/ng-flow/dist/ng-flow-standalone.js"></script>-->
@@ -44,8 +41,8 @@
     <script src="/vendors/videojs/video.js"></script>
 
     <!--轮播器-->
-    <script type="text/javascript" src="vendors/tweenmax/TweenMax.min.js"></script>
-    <link rel='stylesheet' href='css/scrollImg/scroll.css' />
+    <script type="text/javascript" src="/vendors/tweenmax/TweenMax.min.js"></script>
+    <link rel='stylesheet' href='/css/scrollImg/scroll.css' />
 
     <style type="text/css">
     /*.tab-content{
@@ -62,6 +59,15 @@
                $('#myModal').modal('show');
            });
         });*/
+        wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '', // 必填，公众号的唯一标识
+            timestamp: , // 必填，生成签名的时间戳
+            nonceStr: '', // 必填，生成签名的随机串
+            signature: '',// 必填，签名，见附录1
+            jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
     </script>
 
   </head>
@@ -69,18 +75,13 @@
     <!--Loading等提示-->
     <div id="showNotifySpinner"></div>
 
-    <%- include common/head.ejs %>
-<!--     <div ng-controller="myCtrl">
-    </div>
- -->
+     <%- include ../common/head.ejs %>
 
       <!--Body-->
     <div ng-view></div>
+ 
 
-    <%- include common/footer.ejs %>
-
-
-    <!-- Modal -->
-    <div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" data-show="true" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+    <%- include ../common/footer.ejs %>
+   
   </body>
 </html>

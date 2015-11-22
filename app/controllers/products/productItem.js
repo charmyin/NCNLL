@@ -33,3 +33,7 @@ exports.findProductItemById = function(req, res){
   });
 };
 
+exports.sharePruductById = function(req, res){
+  var id = req.param("_id");
+  res.render('share/shareIndex', { title: 'NCNLL' });
+}

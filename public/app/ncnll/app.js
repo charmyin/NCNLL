@@ -1,5 +1,5 @@
 (function(){
-	var ncnllApp=angular.module("ncnll", ["ngRoute", "componentDirective", "modalComponentDirective", 'displayCtl']);
+	var ncnllApp=angular.module("ncnll", ["ngRoute", "componentDirective", "modalComponentDirective", 'displayCtl', 'headAndFootCtl']);
     //全局的配置文件放这里！
     ncnllApp.run(function($rootScope) {
         $rootScope.globalConfig={

@@ -38,6 +38,13 @@
 		};
 	});
 
-	
+	//分享单个商品
+	 //单个展示模块点击后，弹出的modal
+	componentDirective.directive('cmngShareProductInfo', function () {
+		return {
+			restrict: 'A',
+			templateUrl:"/app/ncnll/views/share/shareProductInfo.html"
+		};
+	});
 
 })();

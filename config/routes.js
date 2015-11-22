@@ -67,6 +67,8 @@ module.exports = function (app, passport) {
     app.post('/user/storeProduct', users.storeProduct);
     app.get('/user/getStoredProducts', users.getStoredProducts);
 
+
+
     app.post("/saveBrandInfo", brands.saveBrandInfo);
     app.get('/brand/uploadBrandPhoto', brands.uploadBrandPhotoStatus);
     app.post('/brand/uploadBrandPhoto', brands.uploadBrandPhoto);
@@ -117,6 +119,9 @@ module.exports = function (app, passport) {
 
     //产品个体管理
     app.get('/productItem/id/:_id',productsItemCtrl.findProductItemById);
+
+    //分享商品
+    app.get('/shareProduct/:id', productsItemCtrl.sharePruductById);
 
     //产品图片管理
     app.post('/imageInfo/searchList',imageInfoCtrl.searchList);

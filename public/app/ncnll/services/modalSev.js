@@ -40,6 +40,16 @@
               $(this).attr("src",$(this).attr("ng-srcd"));
             });
           }
+          //
+          if(scope.dataType=="shareType"){
+            var html = '<div id="cmng-share-product-info" cmng-share-product-info></div>';
+            var template = angular.element(html);
+            var linkFnelement = $compile(template)(scope, function(clonedElement, scopeTmp) {
+            //需要延时1毫秒，等待渲染成功
+            $("#productInfoDiv").html(clonedElement);
+          });
+            return; 
+          }
           //console.log(scope.allTabs)
           var html = '<div id="cmng-tab-modal" cmng-tab-modal></div>';
           // Step 1: parse HTML into DOM element
