@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
   , CommonModel = mongoose.model('ProductItem')
-  , utils = require('../../../lib/utils');
+  , utils = require('../../../lib/utils')
+   , wechatUtils = require('../../../lib/wechatUtils');
+var sha1 = require('sha1');
 exports.searchList = function(req, res) {
   var crite = utils.setCriteriaParam(req.body);
   var sortObj = utils.setSortParam(req.body);
@@ -19,8 +21,6 @@ exports.searchList = function(req, res) {
   });
 };
 
-
-
 exports.findProductItemById = function(req, res){
   var id = req.param("_id");
   CommonModel.findOne({ _id:id}, function(err, doc){
@@ -34,6 +34,13 @@ exports.findProductItemById = function(req, res){
 };
 
 exports.sharePruductById = function(req, res){
-  var id = req.param("_id");
-  res.render('share/shareIndex', { title: 'NCNLL' });
+  var id = req.param("id");
+
+  var timestr = Math.round(new Date().getTime()/1000);
+  var url = 'http://192.168.1.105:18080/shareProduct/'+id+"/";
+  wechatUtils.getSignatureIfNotExist(function(obj, signature){
+    console.log(signature)
+    res.render('share/shareIndex', { title: 'NCNLL', pageType:'share', timestr:timestr, signature:signature });
+  }, url,timestr);
+
 }

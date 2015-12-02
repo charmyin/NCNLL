@@ -1,4 +1,4 @@
-<div class="tabbable tabs-below">
+<div class="tabbable tabs-below"  style="padding:10px 10px 10px 10px">
   <ul class="nav nav-tabs">
     <li ng-repeat="item in allTabs" ng-class="{active: selectedTab == ($index+1)}" >
       <a style="cursor:pointer;" ng-click="$parent.selectedTab = ($index+1); doSomething($index+1);">{{item.title}}</a>
