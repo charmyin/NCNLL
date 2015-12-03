@@ -35,10 +35,12 @@ exports.findProductItemById = function(req, res){
 
 exports.sharePruductById = function(req, res){
   var id = req.param("id");
-
+  console.log(111)
   var timestr = Math.round(new Date().getTime()/1000);
-  var url = 'http://192.168.1.105:18080/shareProduct/'+id+"/";
+  var url = 'http://www.ncnll.com/shareProduct/'+id+"/";
+  console.log(222)
   wechatUtils.getSignatureIfNotExist(function(obj, signature){
+    console.log(333)
     console.log(signature)
     res.render('share/shareIndex', { title: 'NCNLL', pageType:'share', timestr:timestr, signature:signature });
   }, url,timestr);
