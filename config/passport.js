@@ -23,16 +23,31 @@ module.exports = function (passport, config) {
       passwordField: 'password'
     },
     function(email, password, done) {
-      User.findOne({ email: email }, function (err, user) {
-        if (err) { return done(err) }
-        if (!user) {
-          return done(null, false, { message: '该用户邮箱未注册！' })
-        }
-        if (!user.authenticate(password)) {
-          return done(null, false, { message: '邮箱或者密码错误！' })
-        }
-        return done(null, user)
-      })
+      console.log(email)
+      if(email.indexOf("@")!=-1){
+        User.findOne({ email: email }, function (err, user) {
+          if (err) { return done(err) }
+          if (!user) {
+            return done(null, false, { message: '该用户邮箱未注册！' })
+          }
+          if (!user.authenticate(password)) {
+            return done(null, false, { message: '邮箱或者密码错误！' })
+          }
+          return done(null, user)
+        })
+      }else{
+        User.findOne({ username: email }, function (err, user) {
+          if (err) { return done(err) }
+          if (!user) {
+            return done(null, false, { message: '该用户名未注册！' })
+          }
+          if (!user.authenticate(password)) {
+            return done(null, false, { message: '用户名或者密码错误！' })
+          }
+          return done(null, user)
+        })
+      }
+      
     }
   ))
 

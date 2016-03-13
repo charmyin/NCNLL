@@ -101,16 +101,25 @@ exports.session = login;
 
 exports.create = function (req, res) {
   var user = new User(req.body);
-  if(!user.email){
-    res.json({success:false, message:"邮箱不能为空!"});
+  console.log(user)
+  if(!user.email || !user.username || user.email.indexOf("@")=="-1"){
+    res.json({success:false, message:"错误!"});
     return;
   }
   //检验是否存在
-  User.findOneAsync({ email: user.email}).then(function(hasUser) {
+  User.findOneAsync({ $or: [ {email: user.email}, { username : user.username } ] }).then(function(hasUser) {
         if(hasUser){
-          res.json({success:false, message:"邮箱已被注册"});
+          var msg="用户注册错误";
+          if(hasUser.email && hasUser.email == user.email){
+            msg = "邮箱已被注册";
+          }
+          if(hasUser.username && hasUser.username == user.username){
+            msg = "用户名已被注册";
+          }
+          res.json({success:false, message:msg});
           return;
         }
+       
         user.provider = 'local';
         return user.saveAsync();
   }).then(function(result) {
@@ -129,15 +138,13 @@ exports.create = function (req, res) {
           });
         });
       }    
-}).catch(function(error){
+  }).catch(function(error){
     console.log(error)
     res.json({
       success:false,
       error:"内部错误"
     });
-});
-
-  
+  });
 };
 
 /**

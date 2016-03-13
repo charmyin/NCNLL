@@ -41,7 +41,8 @@
     "gm":"~1.13.3",
     "bluebird":"~2.9.25",
     "nodemailer":"~0.7.1",
-    "sha1":"~1.1.1"
+    "sha1":"~1.1.1",
+    "ua-parser-js":"~0.7.10"
   },
   "devDependencies": {
     "supertest": "latest",

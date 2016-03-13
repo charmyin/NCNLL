@@ -9,6 +9,8 @@ var express = require('express')
   , winston = require('winston')
   , helpers = require('view-helpers')
   , pkg = require('../package.json')
+  , broswerfilter = require('./broswerfilter');
+
 
 var Promise = require("bluebird");
 Error.stackTraceLimit = 25;
@@ -17,6 +19,8 @@ Promise.longStackTraces();
 var env = process.env.NODE_ENV || 'development'
 
 module.exports = function (app, config, passport) {
+
+
 
   app.set('showStackError', true)
 
@@ -44,7 +48,6 @@ module.exports = function (app, config, passport) {
     }
   } else {
     log = 'dev'
-
   }
   // Don't log during tests
   if (env !== 'test') app.use(express.logger(log))
@@ -54,6 +57,10 @@ module.exports = function (app, config, passport) {
   app.set('view engine', 'ejs')
 
   app.configure(function () {
+
+    //filter older unsupported browsers
+    app.all(/^(?!(\/unsupportedbs)).*$/, broswerfilter)
+
     // expose package.json to views
     app.use(function (req, res, next) {
       res.locals.pkg = pkg

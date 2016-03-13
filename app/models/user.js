@@ -14,6 +14,7 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
   /*  name: { type: String, default: '' },*/
   username: { type: String, default: '' },
+  nickName:{type: String, default: ''}, //昵称
   email: { type: String, default: '' },
   //producer, comsumer, manager
   userrole:{type:Number},
