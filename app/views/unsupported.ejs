@@ -1,23 +1,53 @@
-<!--
-extends layouts/default
-
-block main
-  h1 Oops something went wrong
-  br
-  span 500
-
-block content
-  pre= error
--->
-
 <html>
 <head>
     <title>
        浏览器不支持
     </title>
+    <style type="text/css">
+    	*{
+    		text-decoration: none;
+    		border: none;
+    	}
+    	#content{
+    		 width:70%; 
+    		 height:100px; 
+    		 margin-top:60px;
+    		 margin-left:auto;
+    		 text-align:center;
+    		 margin-right: auto;
+    		 background-color:wheat;
+    		 font-size: 35px;
+    		 font-weight: bold;
+    		 line-height: 100px;
+    	}
+    	#browsers{
+    		margin-top:100px;
+    	}
+    	.browser{
+    		margin:10px 10px;
+    	}
+    	.browser img{
+    		height:200px;
+    		width:200px;
+    	}
+    	a:hover{
+    		background: wheat;
+    	}
+    </style>
 </head>
-<body>
-浏览器不支持，请安装以下浏览器
-<%= title %>
+<body style="text-align:center;">
+ 	<div id="content">网站不支持您当前使用的浏览器，请点击下载如下浏览器安装后访问:</div>
+ 	<div id="browsers">
+ 		
+ 		<a href="http://dlsw.baidu.com/sw-search-sp/soft/51/11843/Firefox_45.0.0.5906_setup.1457578760.exe" class="browser">
+	      <img src="/images/notsupported/firefox.png" alt="火狐浏览器">
+	    </a>
+	 
+	    <a href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandalone_49.0.2623.87_Setup.1457595239.exe" class="browser">
+	      <img src="/images/notsupported/chrome.png" alt="谷歌浏览器">
+	    </a>
+ 
+
+ 	</div>
 </body>
 </html>
